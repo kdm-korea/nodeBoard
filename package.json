@@ -1,0 +1,19 @@
+{
+  "name": "notice_board",
+  "version": "0.0.1",
+  "description": "node js study",
+  "main": "server",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://https://github.com/kdm-korea/nodeBoard/tree/feature_struct_archi.git"
+  },
+  "author": "Kim dong_min",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kdm-korea/nodeBoard/issues"
+  },
+  "homepage": "https://github.com/kdm-korea/nodeBoard#readme"
+}
