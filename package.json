@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://https://github.com/kdm-korea/nodeBoard/tree/feature_struct_archi.git"
+    "url": "git+https://https://github.com/kdm-korea/nodeBoard.git"
   },
   "author": "Kim dong_min",
   "license": "ISC",
