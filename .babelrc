@@ -1,0 +1,3 @@
+{
+    "presets" : ["@babbel/preset-env"]
+}
