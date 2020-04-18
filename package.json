@@ -1,0 +1,29 @@
+{
+  "name": "notice_board",
+  "version": "0.0.1",
+  "description": "node js study",
+  "main": "server",
+  "homepage": "https://github.com/kdm-korea/nodeBoard#readme",
+  "author": "Kim dong_min",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kdm-korea/nodeBoard/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.js --exec babel-node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://https://github.com/kdm-korea/nodeBoard.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
+    "nodemon": "^2.0.3"
+  }
+}
