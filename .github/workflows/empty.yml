@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2test
+        uses: actions/checkout@v2
         
       - name: Push to Docker Hub
         uses: docker/build-push-action@v1
