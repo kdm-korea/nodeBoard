@@ -22,5 +22,5 @@ jobs:
           snapshot: true 
           dockerfile: dockerfile
           registry: docker.pkg.github.com
-          repository: kdmkorea/notice_board
+          repository: kdmkorea/notice_board:0.0.3
           tag_with_ref: true
