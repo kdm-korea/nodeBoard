@@ -20,4 +20,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: kdmkorea/notice_board
-          tag_with_ref: true
+          tag: 0.0.2
