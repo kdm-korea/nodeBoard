@@ -1,3 +1,3 @@
 # nodeBoard
 
-![Publish Docker image](https://github.com/kdm-korea/nodeBoard/actions?query=workflow%3A%22Publish+Docker+image%22)
+![Publish Docker image](https://github.com/kdm-korea/nodeBoard/workflows/Publish%20Docker%20image/badge.svg?branch=master)
