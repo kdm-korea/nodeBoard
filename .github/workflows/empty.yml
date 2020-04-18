@@ -19,3 +19,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: kdmkorea/notice_board
           tag_with_ref: true 
+          echo: ${{github.sha}}
