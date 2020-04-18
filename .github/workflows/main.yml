@@ -18,12 +18,12 @@ jobs:
           repository: kdmkorea/notice_board
           tag_with_ref: true
         
-      - name: Push to GitHub Packages
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ github.actor }}
-          #password: ${{ secrets.GITHUB_TOKEN }}
-           password: cf0db879e17534dbf6b85225f4bb7e5a25f0a226
-          registry: docker.pkg.github.com
-          repository: my-org/my-repo/my-image
-          tag_with_ref: true
+#       - name: Push to GitHub Packages
+#         uses: docker/build-push-action@v1
+#         with:
+#           username: ${{ github.actor }}
+#           #password: ${{ secrets.GITHUB_TOKEN }}
+#            password: 
+#           registry: docker.pkg.github.com
+#           repository: my-org/my-repo/my-image
+#           tag_with_ref: true
