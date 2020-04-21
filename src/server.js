@@ -1,5 +1,9 @@
-const http = require('http');
-http.createServer((request, response) =>{
-    console.log('hello world');
-    const hello = () => console.log('hello world ES6');
-}).listen(8080);
+const express = require('express');
+const app = express();
+
+const post = require('./router/post.js');
+app.use('/post', post.js);
+
+app.listen(8080, function(){
+
+});
