@@ -6,5 +6,7 @@
   "repository": "https://github.com/kdm-korea/nodeBoard",
   "author": "DongMin Kim",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
