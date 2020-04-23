@@ -2,11 +2,17 @@
   "name": "notice-board",
   "version": "0.0.1",
   "description": "notice board with nodejs",
-  "main": "server.js",
+  "main": "./src/server.js",
   "repository": "https://github.com/kdm-korea/nodeBoard",
   "author": "DongMin Kim",
   "license": "MIT",
+  "scripts": {
+    "start": "babel-node src/server"
+  },
   "dependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
     "express": "^4.17.1"
   }
 }
