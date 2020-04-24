@@ -17,10 +17,10 @@ WORKDIR /app
 ADD . /app
 
 # 노드 패키지 실행할 파일
-RUN npm install
+RUN yarn install
 
 #환경변수 
 ENV NODE_ENV development
 
 #Container에서 실행될 명령
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
