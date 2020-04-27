@@ -1,5 +1,5 @@
 # specify the node base image with your desired version node:<version>
-FROM node:13-alpine
+FROM node:14.0.0-alpine
 
 # replace this with your application's default port
 EXPOSE 8080
