@@ -1,12 +1,9 @@
 import { readdirSync } from 'fs';
 import { basename as _basename, join } from 'path';
 import Sequelize from 'sequelize';
-// eslint-disable-next-line import/extensions
-// import dir from '../models';
 
 const basename = _basename(__filename);
 const dirname = `${__dirname.substring(0, __dirname.length - 6)}models`;
-
 const db = {};
 
 const sequelize = new Sequelize(
