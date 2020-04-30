@@ -1,10 +1,11 @@
 import express from 'express';
-import { save } from '../controller/post.controller';
+import { findAll, save } from '../controller/post.controller';
 
 const router = express.Router();
 
-router.get('/:id', (req, res) => {
-  res.json(req.body);
+router.get('/:id', async (req, res) => {
+  console.log('Route ::::::::::::::::::::::::::::::::::::::::::::::::');
+  res.json(await findAll(req));
 });
 
 router.put('/:id', (req, res) => {
@@ -12,6 +13,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  console.log('Route ::::::::::::::::::::::::::::::::::::::::::::::::');
   res.json(await save(req));
 });
 
