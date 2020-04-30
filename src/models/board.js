@@ -26,6 +26,7 @@ export default (sequelize, DataTypes) => {
       underscored: true,
       freezeTableName: true,
       tableName: 'Board',
+      force: true,
     }
   );
   return board;
