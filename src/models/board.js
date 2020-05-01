@@ -25,7 +25,7 @@ export default (sequelize, DataTypes) => {
     {
       underscored: true,
       freezeTableName: true,
-      tableName: 'Board',
+      timestamps: false,
       force: true,
     }
   );
