@@ -1,24 +1,20 @@
 import express from 'express';
-import { findAll, save } from '../controller/post.controller';
+import postController from '../controller/post.controller';
 
 const router = express.Router();
 
-router.get('/:id', async (req, res) => {
-  console.log('Route ::::::::::::::::::::::::::::::::::::::::::::::::');
-  res.json(await findAll(req));
-});
+const routerLog = (res, req, next) => {
+  console.log('=============================================');
+  console.log(':::::::::: LEVEL_1 DEBUG LOG :::::::::: Route');
+  next();
+};
 
-router.put('/:id', (req, res) => {
-  res.send('');
-});
+router.get('/:id', routerLog, postController.findOne);
 
-router.post('/', async (req, res) => {
-  console.log('Route ::::::::::::::::::::::::::::::::::::::::::::::::');
-  res.json(await save(req));
-});
+router.post('/', routerLog, postController.savePost);
 
-router.delete('/:id', (req, res) => {
-  res.send('');
-});
+router.put('/:id');
+
+router.delete('/:id');
 
 module.exports = router;
