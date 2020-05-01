@@ -6,6 +6,7 @@ const app = express();
 
 db.sequelize
   .sync()
+  // .authenticate()
   .then(() => {
     console.log('✓ DB connection success.');
   })
