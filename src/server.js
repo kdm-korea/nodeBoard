@@ -1,12 +1,13 @@
 import express from 'express';
 import db from './config/mariadb.config';
-import post from './routers/post.router';
+import post from './product/post/post.router';
+import user from './routers/auth.router';
 
 const app = express();
 
 db.sequelize
-  .sync()
-  // .authenticate()
+  // .sync()
+  .authenticate()
   .then(() => {
     console.log('✓ DB connection success.');
   })
@@ -17,6 +18,8 @@ db.sequelize
   });
 
 app.use(express.json());
+
+app.use('/user', user);
 
 app.use('/post', post);
 
