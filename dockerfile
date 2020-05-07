@@ -1,5 +1,5 @@
 # specify the node base image with your desired version node:<version>
-FROM node:13-alpine
+FROM node:14.0.0-alpine
 
 # replace this with your application's default port
 EXPOSE 8080
@@ -17,10 +17,10 @@ WORKDIR /app
 ADD . /app
 
 # 노드 패키지 실행할 파일
-RUN npm install
+RUN yarn install
 
 #환경변수 
 ENV NODE_ENV development
 
 #Container에서 실행될 명령
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
