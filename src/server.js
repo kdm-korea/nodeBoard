@@ -1,7 +1,7 @@
 import express from 'express';
 import db from './config/mariadb.config';
 import post from './product/post/post.router';
-import user from './routers/auth.router';
+import user from './product/user/user.router';
 
 const app = express();
 
