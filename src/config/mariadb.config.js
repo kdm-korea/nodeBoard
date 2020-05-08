@@ -20,6 +20,9 @@ const sequelize = new Sequelize(
       idle: 10000,
     },
     timezone: 'Etc/GMT-9',
+    define: {
+      timestamps: true,
+    },
   }
 );
 
