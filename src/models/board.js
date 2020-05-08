@@ -25,7 +25,7 @@ export default (sequelize, DataTypes) => {
     {
       underscored: true,
       freezeTableName: true,
-      timestamps: false,
+      timestamps: true,
       force: true,
     }
   );
