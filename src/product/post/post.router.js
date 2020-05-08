@@ -1,11 +1,12 @@
 import express from 'express';
 import postController from './post.controller';
+import valid from './valid/post.valid';
 
 const router = express.Router();
 
 router.get('/', postController.findAll);
 
-router.get('/:id', postController.findOne);
+router.get('/:id', valid.paramsIdValid, postController.findOne);
 
 router.post('/', postController.savePost);
 
