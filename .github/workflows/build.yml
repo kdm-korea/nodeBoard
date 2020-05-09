@@ -28,7 +28,7 @@ jobs:
     - name: yarn build
       run:  |
         yarn
-        yarn dev
+        yarn start
 #     - run: npm test
       env:
         DB_USERNAME: ${{secrets.DB_USERNAME}}
