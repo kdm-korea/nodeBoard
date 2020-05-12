@@ -1,17 +1,34 @@
 import express from 'express';
+import auth from '../../middleware/auth/jwt.auth';
+import valid from './valid/post.schema';
 import postController from './post.controller';
-import valid from './valid/post.valid';
 
 const router = express.Router();
 
 router.get('/', postController.findAll);
 
-router.get('/:id', valid.paramsIdValid, postController.findOne);
+router.get('/:id', valid.getOneSchema, postController.findOne);
 
-router.post('/', postController.savePost);
+router.post(
+  '/',
+  // auth.verification,
+  valid.postSchema,
+  postController.savePost
+);
 
-router.put('/:id', postController.updatePost);
+router.put(
+  '/:id',
+  // auth.verification,
+  valid.updateSchema,
+  postController.updatePost
+);
 
-router.delete('/:id', postController.deletePost);
+// TODO: 삭제 시 비밀번호 체크 추가
+router.delete(
+  '/:id',
+  // auth.verification,
+  valid.getOneSchema,
+  postController.deletePost
+);
 
 module.exports = router;
