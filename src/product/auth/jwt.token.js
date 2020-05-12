@@ -5,6 +5,15 @@ const createToken = async (data, time) => {
     expiresIn: time,
   });
 };
+
+const createRefreshToken = async (user) => {
+  const data = {
+    id: user.id,
+  };
+  return createToken(data, '7d');
+};
+
 export default {
   createTokens,
+  createAccessToken,
 };
