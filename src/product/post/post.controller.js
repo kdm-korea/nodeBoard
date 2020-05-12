@@ -10,18 +10,17 @@ const savePost = async (req, res, next) => {
     .catch((error) => console.log(error));
 };
 
-const findOne = async (req, res, next) => {
+const findOne = async (req, res) => {
   const { id } = req.params;
   await postService
     .findOne(id)
     .then((data) => {
       res.json(data);
-      next();
     })
     .catch((error) => console.log(error));
 };
 
-const updatePost = async (req, res, next) => {
+const updatePost = async (req, res) => {
   const { id } = req.params;
   const { body } = req;
 
@@ -29,7 +28,6 @@ const updatePost = async (req, res, next) => {
     .save(id, body)
     .then((data) => {
       res.json(data);
-      next();
     })
     .catch((error) => console.log(error));
 };
