@@ -12,6 +12,12 @@ const checkEamil = async (compareEmail) => {
     });
 };
 
+const singUp = async (data) => {
+  return db.User.create(data).catch((error) =>
+    console.log(`:::: USER SERVICE SIGN_UP ERROR ===========${error}`)
+  );
+};
 export default {
   checkEamil,
+  singUp,
 };
