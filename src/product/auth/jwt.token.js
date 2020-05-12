@@ -22,6 +22,14 @@ const createAccessToken = async (user) => {
   };
   return createToken(data, '30m');
 };
+
+const createTokens = async (user) => {
+  return {
+    refreshToken: await createRefreshToken(user),
+    accessToken: await createAccessToken(user),
+  };
+};
+
 export default {
   createTokens,
   createAccessToken,
