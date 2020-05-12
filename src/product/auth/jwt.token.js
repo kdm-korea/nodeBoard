@@ -13,6 +13,15 @@ const createRefreshToken = async (user) => {
   return createToken(data, '7d');
 };
 
+const createAccessToken = async (user) => {
+  const data = {
+    id: user.id,
+    permission: user.permission,
+    // name: user.name,
+    email: user.email,
+  };
+  return createToken(data, '30m');
+};
 export default {
   createTokens,
   createAccessToken,
