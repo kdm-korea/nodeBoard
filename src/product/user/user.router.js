@@ -1,19 +1,12 @@
 import express from 'express';
-import jwt from '../../middleware/jwt.auth';
+// import jwt from '../../middleware/auth/jwt.auth';
 import userController from './user.controller';
+import userSchema from './valid/user.schema';
 
 const router = express.Router();
-/*
-// signUp,
-//   signIn,
-  userInfo,
-  modifyInfo,
-  deleteUser
 
-  // signOut,
-  findPw,
-  modifyPw,
-  
+router.post('/', userSchema.signUpSchema, userController.signUp);
+
 */
 router.get('/', userController.userInfo);
 
