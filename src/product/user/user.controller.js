@@ -22,10 +22,27 @@ const signUp = async (req, res) => {
     });
 };
 
+const signIn = (req, res) => {
+  userService
+    .compareUser(req.body)
+    .then((user) => {
+      console.log(user);
+      if (!user) {
+        res.json({ message: user });
+      } else {
+        jwt.createTokens(user).then((token) => res.json(token));
+      }
+    })
+    .catch((error) => {
+      res.json(error);
+    });
+};
+
       res.json(err);
     });
 };
 
 export default {
   signUp,
+  signIn,
 };
