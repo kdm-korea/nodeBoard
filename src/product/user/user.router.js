@@ -12,7 +12,7 @@ router.get('/', userController.userInfo);
 
 router.get('/signout', userController.signOut);
 
-router.post('/signin', userController.signIn, jwt.createToken);
+router.post('/signin', userController.signIn);
 
 router.post('/signup', userController.signUp, jwt.createToken);
 
