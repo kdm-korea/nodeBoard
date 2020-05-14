@@ -27,6 +27,12 @@ export default (sequelize, DataTypes) => {
         unique: false,
         allowNull: false,
       },
+      salt: {
+        field: 'salt',
+        type: DataTypes.STRING,
+        unique: false,
+        allowNull: false,
+      },
       permission: {
         field: 'permission',
         type: DataTypes.STRING,
