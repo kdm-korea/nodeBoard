@@ -1,14 +1,16 @@
 import db from '../../config/mariadb.config';
 
-const checkEamil = async (compareEmail) => {
+const checkEamil = async (inputEmail) => {
   return db.User.findAndCountAll({
+    raw: true,
     where: {
-      email: compareEmail,
+      email: inputEmail,
     },
   })
     .then((reduplicate) => reduplicate.count === 0)
     .catch((error) => {
       console.log(`:::: USER SERVICE CHECK_EMAIL ERROR ===========${error}`);
+      return error;
     });
 };
 
