@@ -7,18 +7,21 @@ const signUp = async (req, res) => {
   userService
     .checkEamil(body.email)
     .then((answer) => {
-      if (answer === false) {
-        res.json({ emailOverlap: answer });
-        throw new Error({ emailOverlap: answer });
+      if (!answer) {
+        res.json({ emailOverlap: !answer });
+      } else {
+        userService
+          .createUser(body)
+          .then((user) => jwt.createTokens(user))
+          .then((token) => res.json(token));
       }
-    })
-    .then(() => userService.singUp(body))
-    .then((user) => jwt.createTokens(user))
-    .then((token) => {
-      res.json(token);
     })
     .catch((err) => {
       console.log(':::: USER CONTROLLER ERROR ===========');
+      res.json({ message: err.message });
+    });
+};
+
       res.json(err);
     });
 };
