@@ -31,7 +31,14 @@ const comparePassword = async (userId, password) => {
     });
 };
 
-  // encrypt.hashPassword(password);
+const createUser = async (data) => {
+  const record = data;
+  const hashPassword = await crypto.saltHashEncoding(data.password);
+
+  record.password = hashPassword.key;
+  record.salt = hashPassword.salt;
+
+  return db.User.create(record);
 };
 
 const singUp = async (data) => {
@@ -43,6 +50,7 @@ const singUp = async (data) => {
 export default {
   comparePassword,
   compareEamil,
+  createUser,
   chkPassword,
   checkEamil,
   singUp,
