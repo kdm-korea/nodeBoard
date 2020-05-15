@@ -8,6 +8,16 @@ const comparePassword = async (password, salt, key) => {
   );
 };
 
+const saltHashEncoding = async (password) => {
+  const hash = crpyto.randomFillSync(Buffer.alloc(64)).toString('hex');
+
+  return {
+    key: crpyto.scryptSync(password, hash, 64, 'sha512').toString('hex'),
+    salt: hash,
+  };
+};
+
 export default {
+  saltHashEncoding,
   comparePassword,
 };
