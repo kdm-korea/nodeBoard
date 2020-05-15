@@ -32,14 +32,11 @@ const deletePost = async (req, res) => {
     .catch((error) => res.json({ message: error.message }));
 };
 
-const findAll = async (req, res, next) => {
+const findAll = async (req, res) => {
   await postService
     .findAll()
-    .then((data) => {
-      res.json(data);
-      next();
-    })
-    .catch((error) => console.log(error));
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error.message }));
 };
 
 export default {
