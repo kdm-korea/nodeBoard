@@ -41,17 +41,28 @@ const createUser = async (data) => {
   return db.User.create(record);
 };
 
-const singUp = async (data) => {
-  return db.User.create(data).catch((error) =>
-    console.log(`:::: USER SERVICE SIGN_UP ERROR ===========${error}`)
-  );
+const compareUser = async (userDto) => {
+  return db.User.findOne({
+    raw: true,
+    where: { email: userDto.email },
+  }).then((user) => {
+    if (user === null) {
+      throw new Error('no have match this email');
+    }
+    return crypto
+      .comparePassword(userDto.password, user.salt, user.password)
+      .then((isMatch) => {
+        if (isMatch) {
+          return user;
+        }
+        throw new Error('no match this password');
+      });
+  });
 };
 
 export default {
   comparePassword,
   compareEamil,
   createUser,
-  chkPassword,
-  checkEamil,
-  singUp,
+  compareUser,
 };
