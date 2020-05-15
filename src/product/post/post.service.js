@@ -1,7 +1,7 @@
 import db from '../../config/mariadb.config';
 
 const create = async (post) => {
-  return db.Board.create(post).catch((error) => console.log(error));
+  return db.Board.create(post);
 };
 
 const findOne = async (postId) => {
@@ -9,18 +9,18 @@ const findOne = async (postId) => {
     where: {
       id: postId,
     },
-  }).catch((error) => console.log(error));
+  });
 };
 
 const save = async (postId, post) => {
   return db.Board.update(
     { title: post.title, contents: post.contents },
     { where: { id: postId } }
-  ).catch((error) => console.log(error));
+  );
 };
 
 const findAll = async () => {
-  return db.Board.findAll().catch((error) => console.log(error));
+  return db.Board.findAll();
 };
 
 const deleteOne = async (postId) => {
@@ -28,7 +28,7 @@ const deleteOne = async (postId) => {
     where: {
       id: postId,
     },
-  }).catch((error) => console.log(error));
+  });
 };
 
 export default {
