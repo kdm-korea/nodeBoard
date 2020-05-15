@@ -18,13 +18,10 @@ const findOne = async (req, res) => {
 const updatePost = async (req, res) => {
   const { id } = req.params;
   const { body } = req;
-
   await postService
     .save(id, body)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => console.log(error));
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error.message }));
 };
 
 const deletePost = async (req, res, next) => {
