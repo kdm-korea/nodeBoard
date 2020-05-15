@@ -1,13 +1,10 @@
 import postService from './post.service';
 
-const savePost = async (req, res, next) => {
+const savePost = async (req, res) => {
   await postService
     .create(req.body)
-    .then((data) => {
-      res.json(data);
-      next();
-    })
-    .catch((error) => console.log(error));
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error.message }));
 };
 
 const findOne = async (req, res) => {
