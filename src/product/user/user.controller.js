@@ -44,5 +44,6 @@ const validPassword = (req, res) => {
 export default {
   signUp,
   signIn,
-  chkPassword,
+  deleteUser,
+  validPassword,
 };
