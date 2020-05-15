@@ -23,8 +23,8 @@ router.put(
 router.delete(
   '/:id',
   auth.verification,
-  userController.chkPassword,
   valid.getOneSchema,
+  userController.validPassword,
   postController.deletePost
 );
 
