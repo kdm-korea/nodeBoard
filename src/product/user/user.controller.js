@@ -24,10 +24,9 @@ const signIn = (req, res) => {
         res.json({ message: user });
       } else {
         jwt.createTokens(user).then((token) => res.json(token));
-      }
     })
     .catch((error) => {
-      res.json(error);
+      res.json({ message: error.message });
     });
 };
 
