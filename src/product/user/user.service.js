@@ -15,7 +15,7 @@ const compareEamil = async (inputEmail) => {
   });
 };
 
-const chkPassword = async (userId, password) => {
+const comparePassword = async (userId, password) => {
   await db.User.findAll({
     where: {
       raw: true,
@@ -23,14 +23,13 @@ const chkPassword = async (userId, password) => {
     },
   })
     .then((user) => {
-      const inputHashPw = crypto.passwordChk(password, user.salt);
-
-      return inputHashPw === user.password;
+      return crypto.comparePassword(password, user.salt, user.password);
     })
     .catch((error) => {
       console.log(error);
-      throw new Error({ message: error.message });
+      throw new Error({ message: 'no have match user' });
     });
+};
 
   // encrypt.hashPassword(password);
 };
@@ -40,7 +39,9 @@ const singUp = async (data) => {
     console.log(`:::: USER SERVICE SIGN_UP ERROR ===========${error}`)
   );
 };
+
 export default {
+  comparePassword,
   compareEamil,
   chkPassword,
   checkEamil,
