@@ -32,19 +32,13 @@ const signIn = (req, res) => {
 
       res.json(err);
 
-const chkPassword = (req, res, next) => {
+const validPassword = (req, res) => {
   const { body } = req;
 
-  const isMatchPw = userService.chkPassword(body.id, body.password);
-
-  isMatchPw
-    .then((result) => {
-      return result ? next() : res.json({ password: result });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.json({ message: error.message });
-    });
+  userService
+    .comparePassword(body.id, body.password)
+    .then((result) => res.json({ password: result }))
+    .catch((error) => res.json({ message: error.message }));
 };
 
 export default {
