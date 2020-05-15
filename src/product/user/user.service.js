@@ -1,18 +1,18 @@
 import db from '../../config/mariadb.config';
 import crypto from '../../tool/crpytoEncoding';
 
-const checkEamil = async (inputEmail) => {
+const compareEamil = async (inputEmail) => {
   return db.User.findAndCountAll({
     raw: true,
     where: {
       email: inputEmail,
     },
-  })
-    .then((reduplicate) => reduplicate.count === 0)
-    .catch((error) => {
-      console.log(`:::: USER SERVICE CHECK_EMAIL ERROR ===========${error}`);
-      return error;
-    });
+  }).then((reduplicate) => {
+    if (reduplicate.count === 0) {
+      return true;
+    }
+    throw new Error('Already have same email');
+  });
 };
 
 const chkPassword = async (userId, password) => {
@@ -41,6 +41,7 @@ const singUp = async (data) => {
   );
 };
 export default {
+  compareEamil,
   chkPassword,
   checkEamil,
   singUp,
