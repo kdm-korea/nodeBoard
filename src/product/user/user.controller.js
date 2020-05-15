@@ -5,20 +5,13 @@ const signUp = async (req, res) => {
   const { body } = req;
 
   userService
-    .checkEamil(body.email)
-    .then((answer) => {
-      if (!answer) {
-        res.json({ emailOverlap: !answer });
-      } else {
-        userService
-          .createUser(body)
+    .compareEamil(body.email)
+    .then(() => userService.createUser(body))
           .then((user) => jwt.createTokens(user))
-          .then((token) => res.json(token));
-      }
-    })
-    .catch((err) => {
-      console.log(':::: USER CONTROLLER ERROR ===========');
-      res.json({ message: err.message });
+    .then((token) => res.json(token))
+
+    .catch((error) => {
+      res.status(409).json({ message: error.message });
     });
 };
 
