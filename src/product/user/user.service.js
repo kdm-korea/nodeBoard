@@ -37,20 +37,11 @@ const chkNotExistEamil = async (inputEmail) => {
   });
 };
 
-const comparePassword = async (userId, password) => {
-  await db.User.findAll({
-    where: {
-      raw: true,
-      id: userId,
-    },
-  })
-    .then((user) => {
-      return crypto.comparePassword(password, user.salt, user.password);
-    })
-    .catch((error) => {
-      console.log(error);
-      throw new Error({ message: 'no have match user' });
-    });
+const comparePassword = async (user, password) => {
+  if (await crypto.comparePassword(password, user.salt, user.password)) {
+    return user;
+  }
+  throw new Error('No Match Password');
 };
 
 const createUser = async (data) => {
