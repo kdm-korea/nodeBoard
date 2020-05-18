@@ -1,6 +1,6 @@
 import express from 'express';
 import swaggerUI from 'swagger-ui-express';
-import swaggerDoc from './config/swaggerDoc';
+import swaggerDoc from './product/swaggerDoc';
 import db from './config/mariadb.config';
 import post from './product/post/post.router';
 import user from './product/user/user.router';
