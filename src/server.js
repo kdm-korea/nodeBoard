@@ -1,6 +1,6 @@
 import express from 'express';
 import swaggerUI from 'swagger-ui-express';
-import swaggerDoc from './document/swaggerDoc';
+import swaggerDoc from './config/swaggerDoc';
 import db from './config/mariadb.config';
 import post from './product/post/post.router';
 import user from './product/user/user.router';
@@ -21,5 +21,7 @@ app.use(express.json());
 app.use('/user', user);
 
 app.use('/post', post);
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 app.listen(8080, () => {});
