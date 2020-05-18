@@ -1,4 +1,5 @@
 import postService from './post.service';
+import userService from '../user/user.service';
 
 const savePost = async (req, res) => {
   await postService
@@ -9,6 +10,7 @@ const savePost = async (req, res) => {
 
 const findOne = async (req, res) => {
   const { id } = req.params;
+
   await postService
     .findOne(id)
     .then((data) => res.json(data))
@@ -18,6 +20,7 @@ const findOne = async (req, res) => {
 const updatePost = async (req, res) => {
   const { id } = req.params;
   const { body } = req;
+
   await postService
     .save(id, body)
     .then((data) => res.json(data))
@@ -39,7 +42,9 @@ const findAll = async (req, res) => {
   await postService
     .findAll()
     .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error.message }));
+    .catch((error) => {
+      throw new Error(error.message);
+    });
 };
 
 export default {
