@@ -1,6 +1,16 @@
 import db from '../../config/mariadb.config';
 import crypto from '../../tool/crpytoEncoding';
 
+const findUserById = async (userId) => {
+  return db.User.findOne({
+    raw: true,
+    where: {
+      id: userId,
+    },
+  }).catch(() => {
+    throw new Error(`없는 일련번호입니다.`);
+  });
+};
 const compareEamil = async (inputEmail) => {
   return db.User.findAndCountAll({
     raw: true,
