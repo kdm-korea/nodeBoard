@@ -25,9 +25,12 @@ const updatePost = async (req, res) => {
 };
 
 const deletePost = async (req, res) => {
-  const { id } = req.params;
-  await postService
-    .deleteOne(id)
+  const { id, password } = req.params;
+
+  await userService
+    .findUserById(id)
+    .then((user) => userService.comparePassword(user, password))
+    .then(() => postService.deleteOne(id))
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error.message }));
 };
