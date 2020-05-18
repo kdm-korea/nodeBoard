@@ -12,18 +12,13 @@ const signUp = async (req, res) => {
 };
 
 const signIn = (req, res) => {
+  const { body } = req;
+
   userService
-    .compareUser(req.body)
-    .then((user) => {
-      console.log(user);
-      if (!user) {
-        res.json({ message: user });
-      } else {
-        jwt.createTokens(user).then((token) => res.json(token));
-    })
-    .catch((error) => {
-      res.json({ message: error.message });
-    });
+    .findUserByEmail(body.email)
+    .then((user) => userService.comparePassword(user, body.password))
+    .then((user) => jwt.createTokens(user).then((token) => res.json(token)))
+    .catch((error) => res.json({ message: error.message }));
 };
 
       res.json(err);
