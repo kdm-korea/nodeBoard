@@ -11,6 +11,17 @@ const findUserById = async (userId) => {
     throw new Error(`없는 일련번호입니다.`);
   });
 };
+
+const findUserByEmail = async (userEmail) => {
+  return db.User.findOne({
+    raw: true,
+    where: {
+      email: userEmail,
+    },
+  }).catch(() => {
+    throw new Error(`없는 이메일입니다.`);
+  });
+};
 const compareEamil = async (inputEmail) => {
   return db.User.findAndCountAll({
     raw: true,
@@ -51,28 +62,10 @@ const createUser = async (data) => {
   return db.User.create(record);
 };
 
-const compareUser = async (userDto) => {
-  return db.User.findOne({
-    raw: true,
-    where: { email: userDto.email },
-  }).then((user) => {
-    if (user === null) {
-      throw new Error('no have match this email');
-    }
-    return crypto
-      .comparePassword(userDto.password, user.salt, user.password)
-      .then((isMatch) => {
-        if (isMatch) {
-          return user;
-        }
-        throw new Error('no match this password');
-      });
-  });
-};
-
 export default {
+  findUserById,
+  findUserByEmail,
   comparePassword,
-  compareEamil,
+  chkNotExistEamil,
   createUser,
-  compareUser,
 };
