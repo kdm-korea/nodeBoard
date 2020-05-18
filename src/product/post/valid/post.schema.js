@@ -1,5 +1,4 @@
 import { check, validationResult } from 'express-validator';
-// import { validations } from 'express-validator';
 
 const validate = (validations) => {
   return async (req, res, next) => {
@@ -19,18 +18,18 @@ const id = check('id')
   .withMessage('숫자로만 이루어져야 합니다.');
 
 const title = check('title')
-  .isNumeric()
   .not()
+  .isEmpty()
   .withMessage('제목은 필수 입력사항입니다.');
 
 const contents = check('contents')
-  .isNumeric()
   .not()
+  .isEmpty()
   .withMessage('내용은 필수 입력사항입니다.');
 
 export default {
   getOneSchema: validate([id]),
   updateSchema: validate([title, contents]),
-  postSchema: validate([id, title, contents]),
+  postSchema: validate([title, contents]),
   // deleteSchema: validate([password, id]);
 };
