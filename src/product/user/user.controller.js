@@ -5,14 +5,10 @@ const signUp = async (req, res) => {
   const { body } = req;
 
   userService
-    .compareEamil(body.email)
+    .chkNotExistEamil(body.email)
     .then(() => userService.createUser(body))
-          .then((user) => jwt.createTokens(user))
-    .then((token) => res.json(token))
-
-    .catch((error) => {
-      res.status(409).json({ message: error.message });
-    });
+    .then((user) => res.json({ id: user.id }))
+    .catch((error) => res.status(409).json({ message: error.message }));
 };
 
 const signIn = (req, res) => {
