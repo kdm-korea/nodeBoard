@@ -8,6 +8,7 @@ const swaggerDefinition = {
   },
   host: 'localhost:8080',
   basePath: '/',
+  schema: 'http',
   produces: ['application/json'],
   securityDefinitions: {
     jwt: {
@@ -21,7 +22,7 @@ const swaggerDefinition = {
 
 const options = {
   swaggerDefinition,
-  apis: ['./**/*.router.js'],
+  apis: ['src/**/*.router.js', 'src/**/*.router.yaml'],
 };
 
 const swaggerSpec = swaggerJsDoc(options);
