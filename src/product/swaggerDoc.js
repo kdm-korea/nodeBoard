@@ -21,7 +21,11 @@ const swaggerDefinition = {
 
 const options = {
   swaggerDefinition,
-  apis: ['./../product/post/post.router.js'],
+  apis: [
+    // './product/post/post.router.js',
+    // './../product/**/*.router.js',
+    './**/*.router.js',
+  ],
 };
 
 const swaggerSpec = swaggerJsDoc(options);
