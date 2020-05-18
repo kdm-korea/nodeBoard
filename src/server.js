@@ -1,4 +1,6 @@
 import express from 'express';
+import swaggerUI from 'swagger-ui-express';
+import swaggerDoc from './document/swaggerDoc';
 import db from './config/mariadb.config';
 import post from './product/post/post.router';
 import user from './product/user/user.router';
@@ -8,12 +10,9 @@ const app = express();
 db.sequelize
   // .sync()
   .authenticate()
-  .then(() => {
-    console.log('✓ DB connection success.');
-  })
+  .then(() => console.log('✓ DB connection success.'))
   .catch((err) => {
-    console.error(err);
-    console.log('✗ DB connection error. Please make sure DB is running.');
+    console.log(`✗ DB connection error. :::: ${err}`);
     process.exit();
   });
 
