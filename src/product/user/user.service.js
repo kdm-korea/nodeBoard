@@ -22,7 +22,8 @@ const findUserByEmail = async (userEmail) => {
     throw new Error(`없는 이메일입니다.`);
   });
 };
-const compareEamil = async (inputEmail) => {
+
+const chkNotExistEamil = async (inputEmail) => {
   return db.User.findAndCountAll({
     raw: true,
     where: {
