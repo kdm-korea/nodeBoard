@@ -1,4 +1,4 @@
-import { check, validationResult } from 'express-validator';
+import { check, validationResult, param, header } from 'express-validator';
 
 const validate = (validations) => {
   return async (req, res, next) => {
@@ -12,10 +12,12 @@ const validate = (validations) => {
   };
 };
 
-const id = check('id')
-  .isNumeric()
-  .not()
-  .withMessage('숫자로만 이루어져야 합니다.');
+// const jwt = header('authorization')
+//   .not()
+//   .isEmpty()
+//   .withMessage('토큰이 없습니다.');
+
+const id = param('id').isNumeric().withMessage('숫자로만 이루어져야 합니다.');
 
 const title = check('title')
   .not()
@@ -27,9 +29,14 @@ const contents = check('contents')
   .isEmpty()
   .withMessage('내용은 필수 입력사항입니다.');
 
+const password = check('password')
+  .not()
+  .isEmpty()
+  .withMessage('비밀번호는 필수 입력사항입니다.');
+
 export default {
   getOneSchema: validate([id]),
-  updateSchema: validate([title, contents]),
+  updateSchema: validate([id, contents, title]),
   postSchema: validate([title, contents]),
-  // deleteSchema: validate([password, id]);
+  deleteSchema: validate([password, id]),
 };
