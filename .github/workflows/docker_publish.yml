@@ -1,7 +1,7 @@
 name: Publish Docker image
 on:
   push:
-    branches: [master, develop, board_crud]
+    branches: [master, develop, board_crud, feture_Sign]
   pull_request:
     branches: [master, develop]
 jobs:
