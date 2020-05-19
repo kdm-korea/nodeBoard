@@ -1,5 +1,5 @@
 import db from '../../config/mariadb.config';
-import crypto from '../../tool/crpytoEncoding';
+import crypto from '../../lib/pwEnoding/crpytoEncoding';
 
 const findUserById = async (userId) => {
   return db.User.findOne({

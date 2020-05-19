@@ -1,5 +1,5 @@
 import userService from './user.service';
-import jwt from '../auth/jwt.token';
+import jwt from '../../lib/auth/jwt.token';
 
 const signUp = async (req, res) => {
   const { body } = req;
@@ -31,9 +31,38 @@ const validPassword = (req, res) => {
     .catch((error) => res.json({ message: error.message }));
 };
 
+const signOut = (req, res, next) => {
+  next();
+};
+
+const findPw = (req, res, next) => {
+  next();
+};
+
+const modifyPw = (req, res, next) => {
+  next();
+};
+
+const modifyInfo = (req, res, next) => {
+  next();
+};
+
+const userInfo = (req, res, next) => {
+  next();
+};
+
+const deleteUser = (req, res, next) => {
+  next();
+};
+
 export default {
   signUp,
   signIn,
+  signOut,
+  userInfo,
+  findPw,
+  modifyPw,
+  modifyInfo,
   deleteUser,
   validPassword,
 };
