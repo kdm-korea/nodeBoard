@@ -22,7 +22,7 @@ const swaggerDefinition = {
 
 const options = {
   swaggerDefinition,
-  apis: ['src/product/**/*.router.js', 'src/product/**/*.router.yaml'],
+  apis: ['src/product/**/*.router.yaml'],
 };
 
 const swaggerSpec = swaggerJsDoc(options);
