@@ -18,8 +18,11 @@ const findUserByEmail = async (userEmail) => {
     where: {
       email: userEmail,
     },
-  }).catch(() => {
-    throw new Error(`없는 이메일입니다.`);
+  }).then((user) => {
+    if (user !== null) {
+      return user;
+    }
+    throw new Error('이메일이 일치하는 유저가 없습니다.');
   });
 };
 
