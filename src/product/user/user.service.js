@@ -57,6 +57,12 @@ const createUser = async (data) => {
   return db.User.create(record);
 };
 
+const execSignUp = async (body) => {
+  return chkNotExistEamil(body.email)
+    .then(() => createUser(body))
+    .then((user) => user.id);
+};
+
 const execSignIn = async (body) => {
   return findUserByEmail(body.email)
     .then((user) => comparePassword(user, body.password))
