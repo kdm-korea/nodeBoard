@@ -5,19 +5,18 @@ import userSchema from './valid/user.schema';
 
 const router = express.Router();
 
-router.post('/', userSchema.signUpSchema, userController.signUp);
-
-*/
-router.get('/', userController.userInfo);
-
-router.get('/signout', userController.signOut);
-
 router.post('/signin', userController.signIn);
 
-router.post('/signup', userController.signUp, jwt.createToken);
+router.post('/signup', userSchema.signUpSchema, userController.signUp);
 
-router.put('/', userController.modifyInfo);
+router.post('/signout', jwt.verification, userController.signOut);
 
-router.delete('/', userController.deleteUser);
+router.delete('/', jwt.verification, userController.deleteUser);
+
+// router.get('/:id', userController.userInfo);
+
+// router.put('/:id', userController.modifyInfo);
+
+// router.put('/id', userController.modifyPw);
 
 module.exports = router;
