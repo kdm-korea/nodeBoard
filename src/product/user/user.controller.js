@@ -32,6 +32,12 @@ const validPassword = (req, res) => {
 };
 
 const signOut = (req, res, next) => {
+  const { body } = req;
+
+  userService
+    .execSignOut(body)
+    .then((result) => res.json({ message: result }))
+    .catch((error) => res.json({ message: error.message }));
   next();
 };
 
