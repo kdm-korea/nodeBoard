@@ -17,7 +17,7 @@ const createAccessToken = async (user) => {
   const data = {
     id: user.id,
     permission: user.permission,
-    // name: user.name,
+    name: user.name,
     email: user.email,
   };
   return createToken(data, '30m');
