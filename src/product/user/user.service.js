@@ -57,6 +57,17 @@ const createUser = async (data) => {
   return db.User.create(record);
 };
 
+const updatePw = async (user, inputPw) => {
+  const authUser = await db.User.findOne({
+    where: { id: user.id },
+  });
+  const hashPassword = await crypto.saltHashEncoding(inputPw);
+
+  authUser.password = hashPassword.key;
+  authUser.salt = hashPassword.salt;
+  authUser.reload();
+  return true;
+};
 const execSignUp = async (body) => {
   return chkNotExistEamil(body.email)
     .then(() => createUser(body))
