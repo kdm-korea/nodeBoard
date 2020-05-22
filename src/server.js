@@ -22,6 +22,7 @@ app.use('/user', user);
 
 app.use('/post', post);
 
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
+
+app.use(swaggerDoc);
 
 app.listen(8080, () => {});
