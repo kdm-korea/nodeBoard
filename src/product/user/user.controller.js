@@ -15,9 +15,8 @@ const signIn = (req, res) => {
   const { body } = req;
 
   userService
-    .findUserByEmail(body.email)
-    .then((user) => userService.comparePassword(user, body.password))
-    .then((user) => jwt.createTokens(user).then((token) => res.json(token)))
+    .execSignIn(body)
+    .then((token) => res.json({ accessToken: token }))
     .catch((error) => res.json({ message: error.message }));
 };
 
