@@ -3,12 +3,10 @@ import crypto from '../../lib/pwEnoding/crpytoEncoding';
 import authService from '../auth/auth.service';
 
 const findUserById = async (userId) => {
-  return db.User.findOne({
-    raw: true,
-    where: {
-      id: userId,
-    },
-  }).catch(() => {
+  return db.User.findByPk(userId).then((user) => {
+    if (user !== null) {
+      return user;
+    }
     throw new Error(`없는 일련번호입니다.`);
   });
 };
@@ -16,9 +14,7 @@ const findUserById = async (userId) => {
 const findUserByEmail = async (userEmail) => {
   return db.User.findOne({
     raw: true,
-    where: {
-      email: userEmail,
-    },
+    where: { email: userEmail },
   }).then((user) => {
     if (user !== null) {
       return user;
