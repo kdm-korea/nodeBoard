@@ -57,6 +57,12 @@ const createUser = async (data) => {
   return db.User.create(record);
 };
 
+const execSignIn = async (body) => {
+  return findUserByEmail(body.email)
+    .then((user) => comparePassword(user, body.password))
+    .then((user) => authService.createTokens(user))
+    .then((token) => token);
+};
 export default {
   findUserById,
   findUserByEmail,
