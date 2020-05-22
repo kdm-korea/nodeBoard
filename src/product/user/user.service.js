@@ -29,9 +29,7 @@ const findUserByEmail = async (userEmail) => {
 const chkNotExistEamil = async (inputEmail) => {
   return db.User.findAndCountAll({
     raw: true,
-    where: {
-      email: inputEmail,
-    },
+    where: { email: inputEmail },
   }).then((reduplicate) => {
     if (reduplicate.count === 0) {
       return true;
