@@ -1,5 +1,6 @@
 import db from '../../config/mariadb.config';
 import crypto from '../../lib/pwEnoding/crpytoEncoding';
+import authService from '../auth/auth.service';
 
 const findUserById = async (userId) => {
   return db.User.findOne({
@@ -85,10 +86,21 @@ const execSignIn = async (body) => {
     .then((user) => authService.createTokens(user))
     .then((token) => token);
 };
+
+const execSignOut = async (body) => {
+  // redis에 accessToken을 저장하여 접근을 제한한다.
+};
+
+const execDeleteUser = async (body) => {};
+
 export default {
+  execSignUp,
+  execSignIn,
+  execSignOut,
+  execDeleteUser,
+  execUpdatePw,
   findUserById,
   findUserByEmail,
   comparePassword,
   chkNotExistEamil,
-  createUser,
 };
