@@ -1,11 +1,12 @@
 swagger: 2.0
-title:
-tags:
-  - name: Board
-    description: Board post 
-    externalDocs:
-      description: Find out more about github
-      url: https://github.com/kdm-korea/nodeBoard
+# info:
+  # title: fff
+  # tag:
+  #   name: Board
+  #   description: Board post 
+    # externalDocs:
+    #   description: Find out more about github
+    #   url: https://github.com/kdm-korea/nodeBoard
 
 paths:
   /post:
@@ -19,23 +20,29 @@ paths:
       produces:
         -application/json
       parameters:
-        - in: header
-          name: authorization
-          description: jwt token
-          type: apiKey
-          value: Bearer
-        - in: body
-          name: Add new post
-          schema:
-            type: application/json
-            properties:
-              title:
-                type: String
-              contents:
-                type: String
-            example: 
-              title: exmaple title
-              contents: example contents
+        - name: token
+          in: header
+          description: "token to be passed as a header"
+          default: "ZjE4YjMxNmY3OGEzNDMyN2JiYjJmYTQwMDBjODg4OWM="
+          required: true
+          type: string
+        # - in: headers
+        #   name: token
+        #   description: 'jwt token'
+        #   type: apiKey
+        #   value: 'Bearer aaaa.bbbb.cccc'
+        # - in: body
+        #   name: Add new post
+        #   schema:
+        #     type: application/json
+        #     properties:
+        #       title:
+        #         type: String
+        #       contents:
+        #         type: String
+        #     example: 
+        #       title: exmaple title
+        #       contents: example contents
       responses:
         200:
           description: Ok
