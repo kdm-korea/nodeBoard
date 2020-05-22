@@ -9,7 +9,7 @@ const verification = async (req, res, next) => {
 
   jwt.verify(token.split('Bearer ')[1], process.env.JWT_KEY, (err, payload) => {
     if (err) {
-      res.status(400).json({ success: false, message: err.message });
+      res.status(401).json({ success: false, message: err.message });
     } else {
       req.user = payload;
       next();
