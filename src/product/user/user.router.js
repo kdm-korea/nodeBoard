@@ -1,5 +1,5 @@
 import express from 'express';
-// import jwt from '../../middleware/auth/jwt.auth';
+import jwt from '../../middleware/auth/jwt.auth';
 import userController from './user.controller';
 import userSchema from './valid/user.schema';
 
