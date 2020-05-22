@@ -7,37 +7,26 @@ import userController from '../user/user.controller';
 
 const router = express.Router();
 
-swaggerValidation.init('src/product/post/valid/apost.router.yaml');
-
-router.get(
-  '/test',
-  swaggerValidation.validate,
-  // validException,
-  (req, res) => res.json({ success: true })
-);
-
-router.post('/test', swaggerValidation.validate, (req, res) => {
-  res.json({ success: true });
-});
+swaggerValidation.init('src/product/post/valid/post.router.yaml');
 
 router.get('/', postController.findAll);
 
 router.get(
   '/:id',
-  swaggerValidation.validate,
+  // swaggerValidation.validate,
   valid.getOneSchema,
   postController.findOne
 );
 
 router.post(
   '/',
-  swaggerValidation.validate,
+  // swaggerValidation.validate,
   auth.verification,
   valid.postSchema,
   postController.savePost
 );
 
-router.put(
+router.patch(
   '/:id',
   auth.verification,
   valid.updateSchema,
