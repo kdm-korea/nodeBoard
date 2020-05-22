@@ -1,4 +1,8 @@
+import express from 'express';
 import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUI from 'swagger-ui-express';
+
+const router = express.Router();
 
 const swaggerDefinition = {
   info: {
@@ -27,4 +31,6 @@ const options = {
 
 const swaggerSpec = swaggerJsDoc(options);
 
-export default swaggerSpec;
+router.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
+export default router;
