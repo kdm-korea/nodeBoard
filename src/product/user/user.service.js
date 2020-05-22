@@ -66,6 +66,13 @@ const updatePw = async (user, inputPw) => {
   authUser.reload();
   return true;
 };
+
+const execUpdatePw = async (dto) => {
+  await findUserById(dto.user.id)
+    .then((user) => comparePassword(user, dto.password))
+    .then((user) => updatePw(user, dto.password));
+};
+
 const execSignUp = async (body) => {
   return chkNotExistEamil(body.email)
     .then(() => createUser(body))
