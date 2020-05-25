@@ -89,6 +89,9 @@ const execSignIn = async (body) => {
 
 const execSignOut = async (body) => {
   // redis에 accessToken을 저장하여 접근을 제한한다.
+  // 토큰을 어떻게 처리할지에 대해 고민해봐야 함
+};
+
 const execUserInfo = async (userId) => {
   db.User.findOne({
     attributes: ['name', 'email', 'permission'],
@@ -98,7 +101,11 @@ const execUserInfo = async (userId) => {
   });
 };
 
-const execDeleteUser = async (body) => {};
+const execDeleteUser = async (id, password) => {
+  execComparePassword(id, password)
+    // 토큰을 어떻게 처리할지에 대해 고민해봐야 함
+    .then(() => 'success');
+};
 
 export default {
   execUserInfo,
