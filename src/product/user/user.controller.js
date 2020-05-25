@@ -18,12 +18,11 @@ const signIn = (req, res) => {
     .catch((error) => res.json({ message: error.message }));
 };
 
-const validPassword = (req, res) => {
+const comparePassword = (req, res) => {
   const { body } = req;
 
   userService
-    .findUserById(body.id)
-    .then((user) => userService.comparePassword(user, body.password))
+    .execComparePassword(body.id, body.password)
     .then(() => res.json({ password: true }))
     .catch((error) => res.json({ message: error.message }));
 };
