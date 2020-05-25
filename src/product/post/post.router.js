@@ -33,12 +33,11 @@ router.patch(
   postController.updatePost
 );
 
-// TODO: 삭제 시 비밀번호 체크 추가
 router.delete(
   '/:id',
   auth.verification,
   valid.getOneSchema,
-  userController.validPassword,
+  userController.comparePassword,
   postController.deletePost
 );
 
