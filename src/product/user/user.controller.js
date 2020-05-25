@@ -38,12 +38,13 @@ const signOut = (req, res, next) => {
   next();
 };
 
-const findPw = (req, res, next) => {
-  next();
-};
+const modifyPw = (req, res) => {
+  const { body } = req;
 
-const modifyPw = (req, res, next) => {
-  next();
+  userService
+    .execUpdatePw(body)
+    .then((result) => res.json({ message: result }))
+    .catch((error) => res.json({ message: error.message }));
 };
 
 const modifyInfo = (req, res, next) => {
