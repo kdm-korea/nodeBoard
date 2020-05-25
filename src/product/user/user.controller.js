@@ -54,8 +54,14 @@ const userInfo = (req, res, next) => {
   next();
 };
 
-const deleteUser = (req, res, next) => {
-  next();
+const deleteUser = (req, res) => {
+  const { password } = req.body;
+  const { id } = req.user;
+
+  userService
+    .execComparePassword(id, password)
+    .then((result) => res.json({ message: result }))
+    .catch((error) => res.json({ message: error.message }));
 };
 
 export default {
