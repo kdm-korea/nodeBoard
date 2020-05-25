@@ -13,10 +13,16 @@ router.post('/signout', jwt.verification, userController.signOut);
 
 router.delete('/', jwt.verification, userController.deleteUser);
 
-// router.get('/:id', userController.userInfo);
+router.get('/', userController.userInfo);
 
-// router.put('/:id', userController.modifyInfo);
+// router.patch('/', userController.modifyInfo);
 
-// router.put('/id', userController.modifyPw);
+// router.patch('/pw', userController.modifyPw);
+
+// 이메일로 인증번호 받기
+
+// 이메일 인증번호 확인
+
+// 비밀번호 확인
 
 module.exports = router;
