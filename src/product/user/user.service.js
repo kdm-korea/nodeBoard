@@ -85,11 +85,19 @@ const execSignIn = async (body) => {
 
 const execSignOut = async (body) => {
   // redis에 accessToken을 저장하여 접근을 제한한다.
+const execUserInfo = async (userId) => {
+  db.User.findOne({
+    attributes: ['name', 'email', 'permission'],
+    where: {
+      id: userId,
+    },
+  });
 };
 
 const execDeleteUser = async (body) => {};
 
 export default {
+  execUserInfo,
   execSignUp,
   execSignIn,
   execSignOut,
