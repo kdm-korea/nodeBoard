@@ -77,5 +77,5 @@ export default {
   modifyPw,
   modifyInfo,
   deleteUser,
-  validPassword,
+  comparePassword,
 };
