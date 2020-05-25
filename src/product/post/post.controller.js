@@ -38,19 +38,22 @@ const deletePost = async (req, res) => {
     .catch((error) => res.json({ message: error.message }));
 };
 
-const findAll = async (req, res) => {
-  await postService
-    .findAll()
-    .then((data) => res.json(data))
+const paging = async (req, res) => {
+  const postRange = 5;
+  const total = await postService.findMaxPage(postRange);
+  const pagingPost = await postService
+    .findPagingPosts(req.params.id, postRange)
     .catch((error) => {
       throw new Error(error.message);
     });
+
+  await res.json({ totalpage: total, posts: pagingPost });
 };
 
 export default {
   savePost,
+  paging,
   findOne,
   updatePost,
   deletePost,
-  findAll,
 };
