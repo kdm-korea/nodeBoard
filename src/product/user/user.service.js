@@ -102,6 +102,7 @@ const execDeleteUser = async (body) => {};
 
 export default {
   execUserInfo,
+  execComparePassword,
   execSignUp,
   execSignIn,
   execSignOut,
