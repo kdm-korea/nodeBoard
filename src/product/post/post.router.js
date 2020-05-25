@@ -9,7 +9,7 @@ const router = express.Router();
 
 swaggerValidation.init('src/product/post/valid/post.router.yaml');
 
-router.get('/', postController.findAll);
+router.get('/page/:id', postController.paging);
 
 router.get(
   '/:id',
