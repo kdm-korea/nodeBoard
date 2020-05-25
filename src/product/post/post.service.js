@@ -29,6 +29,8 @@ const findPagingPosts = async (pageNum, postRange) => {
   });
 };
 
+const findMaxPage = async (postRange) => {
+  return db.Board.count().then((posts) => Math.ceil(posts / postRange));
 };
 
 const deleteOne = async (postId) => {
@@ -41,9 +43,9 @@ const deleteOne = async (postId) => {
 
 export default {
   findPagingPosts,
+  findMaxPage,
   create,
   save,
   findOne,
-  findAll,
   deleteOne,
 };
