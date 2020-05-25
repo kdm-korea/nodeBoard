@@ -50,8 +50,12 @@ const modifyInfo = (req, res, next) => {
   next();
 };
 
-const userInfo = (req, res, next) => {
-  next();
+const userInfo = (req, res) => {
+  const userId = req.user.id;
+  userService
+    .execUserInfo(userId)
+    .then((user) => res.json({ userInfo: user }))
+    .catch((error) => res.json({ message: error.message }));
 };
 
 const deleteUser = (req, res) => {
