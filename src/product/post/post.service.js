@@ -19,8 +19,16 @@ const save = async (postId, post) => {
   );
 };
 
-const findAll = async () => {
-  return db.Board.findAll();
+const findPagingPosts = async (pageNum, postRange) => {
+  const page = postRange * (pageNum - 1);
+
+  return db.Board.findAll({
+    offset: page,
+    limit: postRange,
+    attributes: ['id', 'title', 'createdAt'],
+  });
+};
+
 };
 
 const deleteOne = async (postId) => {
@@ -32,6 +40,7 @@ const deleteOne = async (postId) => {
 };
 
 export default {
+  findPagingPosts,
   create,
   save,
   findOne,
