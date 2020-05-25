@@ -64,6 +64,10 @@ const updatePw = async (user, inputPw) => {
   return true;
 };
 
+const execComparePassword = async (id, password) => {
+  findUserById(id).then((user) => comparePassword(user, password));
+};
+
 const execUpdatePw = async (dto) => {
   await findUserById(dto.user.id)
     .then((user) => comparePassword(user, dto.password))
