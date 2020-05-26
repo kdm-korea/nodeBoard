@@ -9,6 +9,12 @@ export default (sequelize, DataTypes) => {
         autoIncrement: true,
         allowNull: false,
       },
+      hash: {
+        field: 'hash',
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+      },
       email: {
         field: 'email',
         type: DataTypes.STRING,
