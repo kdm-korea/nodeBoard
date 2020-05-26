@@ -9,12 +9,6 @@ export default (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
       },
-      hash: {
-        field: 'hash',
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false,
-      },
       title: {
         field: 'title',
         type: DataTypes.STRING,
