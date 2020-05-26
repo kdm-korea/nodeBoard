@@ -1,9 +1,13 @@
 import db from '../../config/mariadb.config';
 import crypto from '../../lib/pwEnoding/crpytoEncoding';
 import authService from '../auth/auth.service';
+import uuid from '../../lib/uuid';
 
-const findUserById = async (userId) => {
-  return db.User.findByPk(userId).then((user) => {
+const findUserByHash = async (userHash) => {
+  return db.User.findOne({
+    raw: true,
+    where: { hash: userHash },
+  }).then((user) => {
     if (user !== null) {
       return user;
     }
@@ -31,7 +35,7 @@ const chkNotExistEamil = async (inputEmail) => {
     if (reduplicate.count === 0) {
       return true;
     }
-    throw new Error('Already have same email');
+    throw new Error('이미 계정을 소유하고 있는 이메일입니다.');
   });
 };
 
@@ -39,22 +43,32 @@ const comparePassword = async (user, password) => {
   if (await crypto.comparePassword(password, user.salt, user.password)) {
     return user;
   }
-  throw new Error('No Match Password');
+  throw new Error('패스워드가 일치하지 않습니다.');
 };
 
 const createUser = async (data) => {
   const record = data;
   const hashPassword = await crypto.saltHashEncoding(data.password);
 
+  record.hash = await uuid.createToken();
   record.password = hashPassword.key;
   record.salt = hashPassword.salt;
-
   return db.User.create(record);
+};
+
+const updateUserInfo = async (user, userdto) => {
+  const authUser = await db.User.findOne({
+    where: { hash: user.hash },
+  });
+  authUser.name = userdto.name;
+  authUser.email = userdto.email;
+  authUser.reload();
+  return true;
 };
 
 const updatePw = async (user, inputPw) => {
   const authUser = await db.User.findOne({
-    where: { id: user.id },
+    where: { hash: user.hash },
   });
   const hashPassword = await crypto.saltHashEncoding(inputPw);
 
@@ -64,58 +78,71 @@ const updatePw = async (user, inputPw) => {
   return true;
 };
 
-const execComparePassword = async (id, password) => {
-  findUserById(id).then((user) => comparePassword(user, password));
+const execComparePassword = async (hash, password) => {
+  findUserByHash(hash).then((user) => comparePassword(user, password));
 };
 
-const execUpdatePw = async (dto) => {
-  await findUserById(dto.user.id)
-    .then((user) => comparePassword(user, dto.password))
-    .then((user) => updatePw(user, dto.password));
+const execUpdatePw = async (userDto) => {
+  await findUserByHash(userDto.user.hash)
+    .then((user) => comparePassword(user, userDto.oldPassword))
+    .then((user) => updatePw(user, userDto.newPassword));
 };
 
-const execSignUp = async (body) => {
-  return chkNotExistEamil(body.email)
-    .then(() => createUser(body))
-    .then((user) => user.id);
+const execSignUp = async (userDto) => {
+  return chkNotExistEamil(userDto.email)
+    .then(() => createUser(userDto))
+    .then((user) => user.hash);
 };
 
-const execSignIn = async (body) => {
-  return findUserByEmail(body.email)
-    .then((user) => comparePassword(user, body.password))
+const execSignIn = async (userDto) => {
+  return findUserByEmail(userDto.email)
+    .then((user) => comparePassword(user, userDto.password))
     .then((user) => authService.createTokens(user))
     .then((token) => token);
 };
 
-const execSignOut = async (body) => {
+const execSignOut = async (userDto) => {
   // redis에 accessToken을 저장하여 접근을 제한한다.
   // 토큰을 어떻게 처리할지에 대해 고민해봐야 함
 };
 
-const execUserInfo = async (userId) => {
-  db.User.findOne({
+const execUserInfo = async (userHash) => {
+  return db.User.findOne({
     attributes: ['name', 'email', 'permission'],
     where: {
-      id: userId,
+      hash: userHash,
     },
+  }).then((user) => {
+    if (user === null) {
+      throw new Error('없는 유저입니다.');
+    }
+    return user;
   });
 };
 
-const execDeleteUser = async (id, password) => {
-  execComparePassword(id, password)
-    // 토큰을 어떻게 처리할지에 대해 고민해봐야 함
-    .then(() => 'success');
+const execModifiyInfo = async (userDto) => {
+  const user = findUserByHash(userDto.user.hash);
+
+  return comparePassword(user, userDto.password).then(() =>
+    updateUserInfo(user, userDto)
+  );
+};
+
+const execDeleteUser = async (userHash, password) => {
+  return 0;
+  // 토큰을 어떻게 처리할지에 대해 고민해봐야 함
 };
 
 export default {
   execUserInfo,
+  execModifiyInfo,
   execComparePassword,
   execSignUp,
   execSignIn,
   execSignOut,
   execDeleteUser,
   execUpdatePw,
-  findUserById,
+  findUserByHash,
   findUserByEmail,
   comparePassword,
   chkNotExistEamil,
