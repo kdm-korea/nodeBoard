@@ -5,7 +5,7 @@ const signUp = async (req, res) => {
 
   userService
     .execSignUp(body)
-    .then((userId) => res.json({ id: userId }))
+    .then((userHash) => res.json({ hash: userHash }))
     .catch((error) => res.status(409).json({ message: error.message }));
 };
 
@@ -14,7 +14,7 @@ const signIn = (req, res) => {
 
   userService
     .execSignIn(body)
-    .then((token) => res.json({ accessToken: token }))
+    .then((token) => res.json({ tokens: token }))
     .catch((error) => res.json({ message: error.message }));
 };
 
@@ -46,25 +46,30 @@ const modifyPw = (req, res) => {
     .catch((error) => res.json({ message: error.message }));
 };
 
-const modifyInfo = (req, res, next) => {
-  next();
+const modifyInfo = async (req, res) => {
+  const { body } = req;
+
+  userService
+    .execModifiyInfo(body)
+    .then(() => res.status(204))
+    .catch((error) => res.json({ message: error.message }));
 };
 
 const userInfo = (req, res) => {
-  const userId = req.user.id;
+  const userHash = req.user.hash;
   userService
-    .execUserInfo(userId)
+    .execUserInfo(userHash)
     .then((user) => res.json({ userInfo: user }))
     .catch((error) => res.json({ message: error.message }));
 };
 
 const deleteUser = (req, res) => {
   const { password } = req.body;
-  const { id } = req.user;
+  const userHash = req.user.hash;
 
   userService
-    .execComparePassword(id, password)
-    .then((result) => res.json({ message: result }))
+    .execDeleteUser(userHash, password)
+    .then(() => res.status(204))
     .catch((error) => res.json({ message: error.message }));
 };
 
@@ -73,7 +78,6 @@ export default {
   signIn,
   signOut,
   userInfo,
-  findPw,
   modifyPw,
   modifyInfo,
   deleteUser,
