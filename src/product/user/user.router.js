@@ -11,13 +11,13 @@ router.post('/signup', userSchema.signUpSchema, userController.signUp);
 
 router.post('/signout', jwt.verification, userController.signOut);
 
-router.delete('/', jwt.verification, userController.deleteUser);
+router.get('/user', jwt.verification, userController.userInfo);
 
-router.get('/', userController.userInfo);
+router.delete('/user', jwt.verification, userController.deleteUser);
 
-// router.patch('/', userController.modifyInfo);
+router.patch('/user', userController.modifyInfo);
 
-// router.patch('/pw', userController.modifyPw);
+// router.patch('/user/pw', userController.modifyPw);
 
 // 이메일로 인증번호 받기
 
