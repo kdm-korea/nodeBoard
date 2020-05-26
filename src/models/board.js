@@ -5,8 +5,14 @@ export default (sequelize, DataTypes) => {
       id: {
         field: 'id',
         type: DataTypes.INTEGER,
-        primaryKey: true,
         autoIncrement: true,
+        primaryKey: true,
+        allowNull: false,
+      },
+      hash: {
+        field: 'hash',
+        type: DataTypes.STRING,
+        unique: true,
         allowNull: false,
       },
       title: {
