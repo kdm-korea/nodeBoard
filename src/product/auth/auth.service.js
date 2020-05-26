@@ -8,14 +8,14 @@ const createToken = async (data, time) => {
 
 const createRefreshToken = async (user) => {
   const data = {
-    id: user.id,
+    hash: user.hash,
   };
   return createToken(data, '7d');
 };
 
 const createAccessToken = async (user) => {
   const data = {
-    id: user.id,
+    hash: user.hash,
     permission: user.permission,
     name: user.name,
     email: user.email,
