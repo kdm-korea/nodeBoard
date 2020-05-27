@@ -3,23 +3,22 @@ import swaggerValidation from 'openapi-validator-middleware';
 import auth from '../../middleware/auth/jwt.auth';
 import valid from './valid/post.schema';
 import postController from './post.controller';
-import userController from '../user/user.controller';
 
 const router = express.Router();
 
 swaggerValidation.init('src/product/post/valid/post.router.yaml');
 
-router.get('/page/:id', postController.paging);
+router.get('/post/page/:id', postController.paging);
 
 router.get(
-  '/:id',
+  '/post/:id',
   // swaggerValidation.validate,
   valid.getOneSchema,
   postController.findOne
 );
 
 router.post(
-  '/',
+  '/post',
   // swaggerValidation.validate,
   auth.verification,
   valid.postSchema,
@@ -27,17 +26,16 @@ router.post(
 );
 
 router.patch(
-  '/:id',
+  '/post/:id',
   auth.verification,
   valid.updateSchema,
   postController.updatePost
 );
 
 router.delete(
-  '/:id',
+  '/post/:id',
   auth.verification,
   valid.getOneSchema,
-  userController.comparePassword,
   postController.deletePost
 );
 

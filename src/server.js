@@ -18,9 +18,9 @@ db.sequelize
 
 app.use(express.json());
 
-app.use('/user', user);
+app.use('/', user);
 
-app.use('/post', post);
+app.use('/', post);
 
 app.use('/auth', auth);
 
