@@ -1,5 +1,7 @@
+import models from '../config/mariadb.config';
+
 export default (sequelize, DataTypes) => {
-  const board = sequelize.define(
+  const Board = sequelize.define(
     'Board',
     {
       id: {
@@ -29,5 +31,14 @@ export default (sequelize, DataTypes) => {
       force: true,
     }
   );
-  return board;
+
+  Board.associate = (models) => {
+    models.Board.belongsTo(models.User, {
+      foreignKey: { name: 'userHash', field: 'userHash', allowNull: false },
+      targetKey: 'hash',
+      onDelete: 'NO ACTION',
+    });
+  };
+
+  return Board;
 };
