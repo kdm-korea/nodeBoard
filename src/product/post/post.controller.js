@@ -1,10 +1,11 @@
-import postService from './post.service';
-import userService from '../user/user.service';
+import postService from './service/post.service';
 
 const savePost = async (req, res) => {
+  const { body, user } = req;
+
   await postService
-    .create(req.body)
-    .then((data) => res.json(data))
+    .createPost(body, user)
+    .then((data) => res.json({ postId: data }))
     .catch((error) => res.json({ message: error.message }));
 };
 
@@ -12,42 +13,40 @@ const findOne = async (req, res) => {
   const { id } = req.params;
 
   await postService
-    .findOne(id)
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error.message }));
+    .findPostById(id)
+    .then((data) => res.json({ post: data }))
+    .catch((error) => res.status(409).json({ message: error.message }));
 };
 
 const updatePost = async (req, res) => {
   const { id } = req.params;
-  const { body } = req;
+  const { body, user } = req;
 
   await postService
-    .save(id, body)
-    .then((data) => res.json(data))
+    .updatePost(id, body, user.hash)
+    .then(() => res.status(204).json())
     .catch((error) => res.json({ message: error.message }));
 };
 
 const deletePost = async (req, res) => {
-  const { id, password } = req.params;
+  const { id } = req.params;
+  const { hash } = req.user;
+  const { password } = req.body;
 
-  await userService
-    .findUserById(id)
-    .then((user) => userService.comparePassword(user, password))
-    .then(() => postService.deleteOne(id))
-    .then((data) => res.json(data))
+  await postService
+    .deletePost(id, password, hash)
+    .then(() => res.status(204).json())
     .catch((error) => res.json({ message: error.message }));
 };
 
 const paging = async (req, res) => {
+  const { id } = req.params;
   const postRange = 5;
-  const total = await postService.findMaxPage(postRange);
-  const pagingPost = await postService
-    .findPagingPosts(req.params.id, postRange)
-    .catch((error) => {
-      throw new Error(error.message);
-    });
 
-  await res.json({ totalpage: total, posts: pagingPost });
+  await postService
+    .pagingPosts(id, postRange)
+    .then((result) => res.json(result))
+    .catch((error) => res.json({ message: error.message }));
 };
 
 export default {
