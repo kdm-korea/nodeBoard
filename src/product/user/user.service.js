@@ -41,7 +41,7 @@ const chkNotExistEamil = async (inputEmail) => {
 
 const comparePassword = async (user, password) => {
   if (await crypto.comparePassword(password, user.salt, user.password)) {
-    return user;
+    return true;
   }
   throw new Error('패스워드가 일치하지 않습니다.');
 };
@@ -83,9 +83,10 @@ const execComparePassword = async (hash, password) => {
 };
 
 const execUpdatePw = async (userDto) => {
-  await findUserByHash(userDto.user.hash)
-    .then((user) => comparePassword(user, userDto.oldPassword))
-    .then((user) => updatePw(user, userDto.newPassword));
+  await findUserByHash(userDto.user.hash).then(async (user) => {
+    await comparePassword(user, userDto.oldPassword);
+    return updatePw(user, userDto.newPassword);
+  });
 };
 
 const execSignUp = async (userDto) => {
@@ -96,8 +97,10 @@ const execSignUp = async (userDto) => {
 
 const execSignIn = async (userDto) => {
   return findUserByEmail(userDto.email)
-    .then((user) => comparePassword(user, userDto.password))
-    .then((user) => authService.createTokens(user))
+    .then(async (user) => {
+      await comparePassword(user, userDto.password);
+      return authService.createTokens(user);
+    })
     .then((token) => token);
 };
 
