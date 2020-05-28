@@ -2,12 +2,7 @@ import { check, validationResult, body, header } from 'express-validator';
 
 const validate = (validations) => {
   return async (req, res, next) => {
-    await Promise.all(
-      validations.map(async (validation) => {
-        const a = await validation.run(req);
-        console.log(a.fields[0]);
-      })
-    );
+    await Promise.all(validations.map((validation) => validation.run(req)));
 
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -35,6 +30,17 @@ const password = body('password')
 
 const name = body('name').notEmpty().withMessage('이름은 필수 입력사항입니다.');
 
+const mustNullPermission = body('permission')
+  .isEmpty()
+  .withMessage('권한은 입력사항이 아닙니다.');
+
 export default {
-  signUpSchema: validate([name, email, password]),
+  signInSchema: validate([token, email, password]),
+  signUpSchema: validate([name, email, password, mustNullPermission]),
+  signOutSchema: validate([token]),
+  userInfoSchema: validate([token]),
+  modifyPwSchema: validate([]),
+  modiftInfoSchema: validate([]),
+  DeleteUserSchema: validate([]),
+  comparePassword: validate([]),
 };
