@@ -13,16 +13,17 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST_IP,
     dialect: process.env.DB_DIALECT,
+    timezone: '+09:00',
     pool: {
-      max: 5,
-      min: 0,
+      max: 20,
+      min: 5,
       acquire: 30000,
-      idle: 10000,
+      idle: 60000,
     },
-    timezone: 'Etc/GMT-9',
     define: {
       timestamps: true,
     },
+    logging: true,
   }
 );
 
