@@ -1,4 +1,4 @@
-import postService from './service/post.service';
+import postService from './post.service';
 
 const savePost = async (req, res) => {
   const { body, user } = req;
