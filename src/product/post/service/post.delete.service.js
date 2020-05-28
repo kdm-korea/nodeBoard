@@ -1,6 +1,6 @@
 import db from '../../../config/mariadb.config';
 import postHelp from './post.help.service';
-import userService from '../../user/user.service';
+import userService from '../../user/service/user.help.service';
 
 const compareWriter = async (postId, password, hash) =>
   postHelp.findOneById(postId).then(async (record) => {
