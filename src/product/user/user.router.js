@@ -19,6 +19,8 @@ router.patch('/user', userController.modifyInfo);
 
 // router.patch('/user/pw', userController.modifyPw);
 
+router.post('/user/pw', jwt.verification, userController.comparePassword);
+
 // 이메일로 인증번호 받기
 
 // 이메일 인증번호 확인
