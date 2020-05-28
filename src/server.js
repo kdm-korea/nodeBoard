@@ -1,5 +1,5 @@
 import express from 'express';
-import swaggerDoc from './lib/document/swaggerDoc';
+import swaggerDoc from './lib/swaggerDoc';
 import db from './config/mariadb.config';
 import post from './product/post/post.router';
 import user from './product/user/user.router';
@@ -26,4 +26,4 @@ app.use('/auth', auth);
 
 app.use(swaggerDoc);
 
-app.listen(8080, () => {});
+app.listen(8080, () => console.log('✔ Server Runnning.'));
