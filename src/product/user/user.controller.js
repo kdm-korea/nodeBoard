@@ -1,10 +1,10 @@
-import userService from './user.service';
+import userService from './service/user.service';
 
 const signUp = async (req, res) => {
   const { body } = req;
 
   userService
-    .execSignUp(body)
+    .signUp(body)
     .then((userHash) => res.json({ hash: userHash }))
     .catch((error) => res.status(409).json({ message: error.message }));
 };
@@ -13,25 +13,26 @@ const signIn = (req, res) => {
   const { body } = req;
 
   userService
-    .execSignIn(body)
+    .signIn(body)
     .then((token) => res.json({ tokens: token }))
     .catch((error) => res.json({ message: error.message }));
 };
 
 const comparePassword = (req, res) => {
-  const { body } = req;
+  const { password } = req.body;
+  const { hash } = req.user;
 
   userService
-    .execComparePassword(body.id, body.password)
+    .comparePassword(hash, password)
     .then(() => res.json({ password: true }))
-    .catch((error) => res.json({ message: error.message }));
+    .catch((error) => res.status(422).json({ message: error.message }));
 };
 
 const signOut = (req, res, next) => {
   const { body } = req;
 
   userService
-    .execSignOut(body)
+    .signOut(body)
     .then((result) => res.json({ message: result }))
     .catch((error) => res.json({ message: error.message }));
   next();
@@ -41,7 +42,7 @@ const modifyPw = (req, res) => {
   const { body } = req;
 
   userService
-    .execUpdatePw(body)
+    .modifyPw(body)
     .then((result) => res.json({ message: result }))
     .catch((error) => res.json({ message: error.message }));
 };
@@ -50,7 +51,7 @@ const modifyInfo = async (req, res) => {
   const { body } = req;
 
   userService
-    .execModifiyInfo(body)
+    .modifyUserInfo(body)
     .then(() => res.status(204))
     .catch((error) => res.json({ message: error.message }));
 };
@@ -58,7 +59,7 @@ const modifyInfo = async (req, res) => {
 const userInfo = (req, res) => {
   const userHash = req.user.hash;
   userService
-    .execUserInfo(userHash)
+    .getUserInfo(userHash)
     .then((user) => res.json({ userInfo: user }))
     .catch((error) => res.json({ message: error.message }));
 };
@@ -68,7 +69,7 @@ const deleteUser = (req, res) => {
   const userHash = req.user.hash;
 
   userService
-    .execDeleteUser(userHash, password)
+    .deleteUser(userHash, password)
     .then(() => res.status(204))
     .catch((error) => res.json({ message: error.message }));
 };
