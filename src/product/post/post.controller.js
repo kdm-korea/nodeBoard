@@ -25,7 +25,7 @@ const updatePost = async (req, res) => {
   await postService
     .updatePost(id, body, user.hash)
     .then(() => res.status(204).json())
-    .catch((error) => res.json({ message: error.message }));
+    .catch((error) => res.status(403).json({ message: error.message }));
 };
 
 const deletePost = async (req, res) => {
@@ -36,7 +36,7 @@ const deletePost = async (req, res) => {
   await postService
     .deletePost(id, password, hash)
     .then(() => res.status(204).json())
-    .catch((error) => res.json({ message: error.message }));
+    .catch((error) => res.status(404).json({ message: error.message }));
 };
 
 const paging = async (req, res) => {
