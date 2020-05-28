@@ -1,4 +1,4 @@
-import userService from '../user/user.service';
+import userService from '../user/service/user.help.service';
 import authService from './auth.service';
 
 const execCreateAccessToken = async (req, res) => {
