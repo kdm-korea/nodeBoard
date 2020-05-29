@@ -8,13 +8,15 @@
   "license": "MIT",
   "scripts": {
     "start": "babel-node ./src/server",
-    "test": "mocha",
-    "testAll": "mocha -r @babel/register test/**",
-    "dev": "bnr start"
+    "testAll": "bnr testAll",
+    "dev": "bnr develop"
   },
   "betterScripts": {
-    "start": {
+    "develop": {
       "command": "nodemon --exec babel-node ./src/server"
+    },
+    "testAll": {
+      "command": "nodemon --exec mocha -r @babel/register ./src/test/**"
     }
   },
   "dependencies": {
