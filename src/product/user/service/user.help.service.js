@@ -1,6 +1,7 @@
 import db from '../../../config/mariadb.config';
 import crypto from '../../../lib/crpytoEncoding';
 import uuid from '../../../lib/uuid';
+import error from '../../../middleware/error';
 
 const findUserByHash = async (userHash) => {
   return db.User.findOne({
@@ -34,7 +35,7 @@ const chkNotExistEamil = async (inputEmail) => {
     if (reduplicate.count === 0) {
       return true;
     }
-    throw new Error('이미 계정을 소유하고 있는 이메일입니다.');
+    throw new error.ConfictError('이미 계정을 소유하고 있는 이메일입니다.');
   });
 };
 
