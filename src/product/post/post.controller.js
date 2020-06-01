@@ -1,6 +1,6 @@
-import postService from './post.service';
+import postService from './service';
 
-const savePost = async (req, res) => {
+const createPost = async (req, res) => {
   const { body, user } = req;
 
   await postService
@@ -50,7 +50,7 @@ const paging = async (req, res) => {
 };
 
 export default {
-  savePost,
+  createPost,
   paging,
   findOne,
   updatePost,
