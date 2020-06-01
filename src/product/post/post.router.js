@@ -22,7 +22,7 @@ router.post(
   // swaggerValidation.validate,
   auth.verification,
   valid.postSchema,
-  postController.savePost
+  postController.createPost
 );
 
 router.patch(
