@@ -13,7 +13,7 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST_IP,
     dialect: process.env.DB_DIALECT,
-    timezone: '+09:00',
+    timezone: 'Etc/GMT-9',
     pool: {
       max: 20,
       min: 5,
@@ -23,7 +23,11 @@ const sequelize = new Sequelize(
     define: {
       timestamps: true,
     },
-    logging: true,
+    logging: false,
+    dialectOptions: {
+      useUTC: false,
+      timezone: 'Etc/GMT-9',
+    },
   }
 );
 
