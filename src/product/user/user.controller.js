@@ -1,4 +1,4 @@
-import userService from './service/user.service';
+import userService from './service';
 
 const signUp = async (req, res) => {
   const { body } = req;
@@ -6,7 +6,9 @@ const signUp = async (req, res) => {
   userService
     .signUp(body)
     .then((userHash) => res.json({ hash: userHash }))
-    .catch((error) => res.status(409).json({ message: error.message }));
+    .catch((error) => {
+      res.status(error.status).json(error);
+    });
 };
 
 const signIn = (req, res) => {
