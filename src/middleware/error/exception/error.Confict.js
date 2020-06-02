@@ -1,6 +1,6 @@
-import ApplicationError from './error.Application';
+import BaseError from './error.Base';
 
-class ConfictError extends ApplicationError {
+class ConfictError extends BaseError {
   constructor(message) {
     super(409, message || 'Confict Error');
   }
