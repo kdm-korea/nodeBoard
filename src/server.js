@@ -22,7 +22,7 @@ app.use('/', user);
 
 app.use('/', post);
 
-app.use('/auth', auth);
+app.use('/', auth);
 
 app.use(swaggerDoc);
 
