@@ -1,99 +1,48 @@
-swagger: 2.0
-# info:
-  # title: fff
-  # tag:
-  #   name: Board
-  #   description: Board post 
-    # externalDocs:
-    #   description: Find out more about github
-    #   url: https://github.com/kdm-korea/nodeBoard
-
+swagger: '2.0'
+tags:
+- name: 'Board'
+  description: 'Everything about your Pets'
+  externalDocs:
+    description: 'Find out more'
+    url: 'http://swagger.io'
+- name: 'User'
+  description: 'Access to Petstore orders'
+- name: 'Comment'
+  description: 'Operations about user'
+  externalDocs:
+    description: 'Find out more about our store'
+    url: 'http://swagger.io'
+schemes:
+- 'https'
+- 'http'
 paths:
   /post:
     post:
       tags:
-        - Board
-      summary: Add new post
-      description: "Create post"
+        - 'Board'
+      summary: 'add a new post'
+      description: ''
       consumes:
-        -application/json
+        - 'appilcation/json'
       produces:
-        -application/json
+        - 'application/json'
       parameters:
-        - name: token
-          in: header
-          description: "token to be passed as a header"
-          default: "ZjE4YjMxNmY3OGEzNDMyN2JiYjJmYTQwMDBjODg4OWM="
+        - in: 'body'
+          name: 'Post Object'
+          description: 'One post'
           required: true
-          type: string
-        # - in: headers
-        #   name: token
-        #   description: 'jwt token'
-        #   type: apiKey
-        #   value: 'Bearer aaaa.bbbb.cccc'
-        # - in: body
-        #   name: Add new post
-        #   schema:
-        #     type: application/json
-        #     properties:
-        #       title:
-        #         type: String
-        #       contents:
-        #         type: String
-        #     example: 
-        #       title: exmaple title
-        #       contents: example contents
+          schema:
+            $ref: '#/definitions/Post'
       responses:
         200:
-          description: Ok
-        409:
-          description: Not match user token
-        422:
-          description: No have args or not match args
+          description: 'Success'
+            
+definitions:
+  Post:
+    type: 'object'
+    properties:
+      title:
+        type: 'string'
+      contents:
+        type: 'string'
 
-    get:
-      tags:
-        - "Board"
-      summary: Get all posts
-      description: Optional extended description in Markdown.
-      produces:
-        - application/json
-      parameter:
-        -in: "body"
-      responses:
-        200:
-          description: OK
-        409:
-          description: No hvae args or not match args
-  /post/:id:
-    get:
-      tags:
-        - "Board"
-      summary: Get post
-      description: 하나의 게시물만 리턴
-      produces:
-        -application/json
-      parameter:
-      responses:
-        200:
-          description: Ok
-    put:
-      tags:
-        - "Board"
-      summary: Modified post
-      description:
-      produces:
-        -application/json
-      responses:
-        200:
-          description: Ok
-    delete:
-      tags:
-        - "Board"
-      summary: Delete post
-      description:
-      produces:
-        -application/json
-      responses:
-        200:
-          description: Ok
