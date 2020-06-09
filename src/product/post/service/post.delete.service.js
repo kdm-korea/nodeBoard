@@ -1,11 +1,12 @@
 import db from '../../../config/mariadb.config';
 import postHelp from './post.help.service';
 import userService from '../../user/service/user.help.service';
+import ErrorMessage from '../../help/exception';
 
 const compareWriter = async (postId, password, hash) =>
   postHelp.findOneById(postId).then(async (record) => {
     if (record.User.hash !== hash) {
-      throw new Error('글 작성자가 아닙니다.');
+      throw new ErrorMessage.Forbioddan('글 작성자가 아닙니다.');
     }
     await userService.comparePassword(record.User, password);
 
@@ -21,7 +22,7 @@ const execDeletePost = async (postId, password, hash) => {
       },
     }).then((result) => console.log(result));
   }
-  throw new Error('???????? Unexception Error');
+  throw new ErrorMessage.Forbioddan('글 작성자가 아닙니다.');
 };
 
 export default execDeletePost;
