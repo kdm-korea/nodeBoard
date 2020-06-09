@@ -1,50 +1,50 @@
 import postService from './service';
 
-const createPost = async (req, res) => {
+const createPost = (req, res) => {
   const { body, user } = req;
 
-  await postService
+  postService
     .createPost(body, user)
     .then((data) => res.json({ postId: data }))
     .catch((error) => res.json({ message: error.message }));
 };
 
-const findOne = async (req, res) => {
-  const { id } = req.params;
+const findOne = (req, res) => {
+  const { postId } = req.params;
 
-  await postService
-    .findPostById(id)
+  postService
+    .findPostById(postId)
     .then((data) => res.json({ post: data }))
     .catch((error) => res.status(409).json({ message: error.message }));
 };
 
-const updatePost = async (req, res) => {
-  const { id } = req.params;
+const updatePost = (req, res) => {
+  const { postId } = req.params;
   const { body, user } = req;
 
-  await postService
-    .updatePost(id, body, user.hash)
+  postService
+    .updatePost(postId, body, user.hash)
     .then(() => res.status(204).json())
     .catch((error) => res.status(403).json({ message: error.message }));
 };
 
-const deletePost = async (req, res) => {
-  const { id } = req.params;
+const deletePost = (req, res) => {
+  const { postId } = req.params;
   const { hash } = req.user;
   const { password } = req.body;
 
-  await postService
-    .deletePost(id, password, hash)
+  postService
+    .deletePost(postId, password, hash)
     .then(() => res.status(204).json())
     .catch((error) => res.status(404).json({ message: error.message }));
 };
 
-const paging = async (req, res) => {
-  const { id } = req.params;
+const paging = (req, res) => {
+  const { pageId } = req.params;
   const postRange = 5;
 
-  await postService
-    .pagingPosts(id, postRange)
+  postService
+    .pagingPosts(pageId, postRange)
     .then((result) => res.json(result))
     .catch((error) => res.json({ message: error.message }));
 };
