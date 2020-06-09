@@ -19,3 +19,11 @@ const getRefreshTokenHash = async (token) => {
     }
   );
 };
+
+const execCreateAccessToken = async (token) => {
+  return getRefreshTokenHash(token)
+    .then((hash) => userHelp.findUserByHash(hash))
+    .then((user) => authHelp.createAccessToken(user));
+};
+
+export default execCreateAccessToken;
