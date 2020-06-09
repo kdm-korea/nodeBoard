@@ -1,12 +1,12 @@
-import userService from '../user/service/user.help.service';
-import authService from './auth.service';
+import authService from './service';
 
-const execCreateAccessToken = async (req, res) => {
-  await userService
-    .findUserByHash(req.user.hash)
-    .then((user) => authService.createAccessToken(user))
+const createAccessToken = async (req, res, next) => {
+  const token = req.headers.authorization;
+
+  await authService
+    .createAccessToken(token)
     .then((accessToken) => res.json({ accesstoken: accessToken }))
-    .catch((error) => res.status(401).json({ message: error.message }));
+    .catch((error) => next(error));
 };
 
-export default { execCreateAccessToken };
+export default { createAccessToken };
