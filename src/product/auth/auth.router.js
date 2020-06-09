@@ -4,6 +4,6 @@ import authController from './auth.contorller';
 
 const router = express.Router();
 
-router.post('/', jwtAuth.verification, authController.execCreateAccessToken);
+router.post('/auth', authController.createAccessToken);
 
 module.exports = router;
