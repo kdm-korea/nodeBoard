@@ -1,5 +1,5 @@
 import userHelp from './user.help.service';
-import authHelp from '../../auth/auth.service';
+import authHelp from '../../auth/service/auth.help.service';
 
 const execSignIn = async (userDto) => {
   return userHelp
