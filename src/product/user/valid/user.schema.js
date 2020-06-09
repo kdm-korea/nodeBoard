@@ -28,6 +28,10 @@ const password = body('password')
   .notEmpty()
   .withMessage('비밀번호는 필수 입력사항입니다.');
 
+const newPassword = body('newPassword')
+  .notEmpty()
+  .withMessage('새로운 비밀번호는 필수 입력사항입니다.');
+
 const name = body('name').notEmpty().withMessage('이름은 필수 입력사항입니다.');
 
 const mustNullPermission = body('permission')
@@ -39,8 +43,8 @@ export default {
   signUpSchema: validate([name, email, password, mustNullPermission]),
   signOutSchema: validate([token]),
   userInfoSchema: validate([token]),
-  modifyPwSchema: validate([]),
-  modiftInfoSchema: validate([]),
-  DeleteUserSchema: validate([]),
-  comparePassword: validate([]),
+  modifyPwSchema: validate([token, password, newPassword]),
+  modifyInfoSchema: validate([token, email, name, mustNullPermission]),
+  DeleteUserSchema: validate([token, password]),
+  comparePassword: validate([token, password]),
 };
