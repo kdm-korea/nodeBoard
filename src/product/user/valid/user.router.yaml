@@ -1,0 +1,50 @@
+swagger: '2.0'
+tags:
+- name: 'User'
+  description: 'Everything about your Pets'
+  externalDocs:
+    description: 'Find out more'
+    url: 'http://swagger.io'
+- name: 'User'
+  description: 'Access to Petstore orders'
+- name: 'Comment'
+  description: 'Operations about user'
+  externalDocs:
+    description: 'Find out more about our store'
+    url: 'http://swagger.io'
+schemes:
+- 'https'
+- 'http'
+paths:
+  /post:
+    post:
+      tags:
+        - 'User'
+      summary: 'add a new User'
+      description: ''
+      consumes:
+        - 'appilcation/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: 'body'
+          name: 'User Object'
+          description: 'One user'
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        200:
+          description: 'Success'
+            
+definitions:
+  User:
+    type: 'object'
+    properties:
+      email:
+        type: string
+        format: email
+      password:
+        type: 'string'
+        
+
