@@ -1,4 +1,5 @@
 import db from '../../../config/mariadb.config';
+import ErrorMessage from '../../help/exception';
 
 const execUserInfo = async (userHash) => {
   return db.User.findOne({
@@ -8,7 +9,7 @@ const execUserInfo = async (userHash) => {
     },
   }).then((user) => {
     if (user === null) {
-      throw new Error('없는 유저입니다.');
+      throw Error('Database Error ::: user.getUserInfo.service');
     }
     return user;
   });
