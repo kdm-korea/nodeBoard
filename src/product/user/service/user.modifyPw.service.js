@@ -1,8 +1,8 @@
 import userHelp from './user.help.service';
 
-const execUpdatePw = async (userDto) => {
-  await userHelp.findUserByHash(userDto.user.hash).then(async (user) => {
-    await userHelp.comparePassword(user, userDto.oldPassword);
+const execUpdatePw = async (hash, userDto) => {
+  await userHelp.findUserByHash(hash).then(async (user) => {
+    await userHelp.comparePassword(user, userDto.password);
     return userHelp.updatePw(user, userDto.newPassword);
   });
 };
