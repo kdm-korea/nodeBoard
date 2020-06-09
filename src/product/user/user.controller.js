@@ -1,19 +1,15 @@
 import userService from './service';
 
-const signUp = async (req, res) => {
+const signUp = (req, res, next) => {
   const { body } = req;
-
   userService
     .signUp(body)
     .then((userHash) => res.json({ hash: userHash }))
-    .catch((error) => {
-      res.status(error.status).json(error);
-    });
+    .catch((error) => next(error));
 };
 
 const signIn = (req, res) => {
   const { body } = req;
-
   userService
     .signIn(body)
     .then((token) => res.json({ tokens: token }))
@@ -23,16 +19,14 @@ const signIn = (req, res) => {
 const comparePassword = (req, res) => {
   const { password } = req.body;
   const { hash } = req.user;
-
   userService
     .comparePassword(hash, password)
-    .then(() => res.json({ password: true }))
+    .then(() => res.status(204).json())
     .catch((error) => res.status(422).json({ message: error.message }));
 };
 
 const signOut = (req, res, next) => {
   const { body } = req;
-
   userService
     .signOut(body)
     .then((result) => res.json({ message: result }))
@@ -42,16 +36,15 @@ const signOut = (req, res, next) => {
 
 const modifyPw = (req, res) => {
   const { body } = req;
-
+  const { hash } = req.user;
   userService
-    .modifyPw(body)
-    .then((result) => res.json({ message: result }))
+    .modifyPw(hash, body)
+    .then((result) => res.status(204).json({ message: result }))
     .catch((error) => res.json({ message: error.message }));
 };
 
 const modifyInfo = async (req, res) => {
   const { body } = req;
-
   userService
     .modifyUserInfo(body)
     .then(() => res.status(204))
@@ -69,7 +62,6 @@ const userInfo = (req, res) => {
 const deleteUser = (req, res) => {
   const { password } = req.body;
   const userHash = req.user.hash;
-
   userService
     .deleteUser(userHash, password)
     .then(() => res.status(204))
