@@ -1,20 +1,25 @@
 import jwt from 'jsonwebtoken';
+import ErrorMessage from '../../product/help/exception';
 
 const verification = async (req, res, next) => {
-  const token = req.headers.authorization;
+  const token = await req.headers.authorization;
 
-  if (!token) {
-    throw new Error('Not Found Token');
+  if (token === undefined) {
+    next(new ErrorMessage.UndefinedToken());
   }
 
-  jwt.verify(token.split('Bearer ')[1], process.env.JWT_KEY, (err, payload) => {
-    if (err) {
-      res.status(401).json({ success: false, message: err.message });
-    } else {
-      req.user = payload;
-      next();
+  jwt.verify(
+    token.split('Bearer ')[1],
+    process.env.ACCESS_JWT_KEY,
+    (err, payload) => {
+      if (!err) {
+        req.user = payload;
+        next();
+      } else {
+        next(new ErrorMessage.ExpiredToken());
+      }
     }
-  });
+  );
 };
 
 export default {
