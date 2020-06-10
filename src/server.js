@@ -4,6 +4,7 @@ import db from './config/mariadb.config';
 import post from './product/post/post.router';
 import user from './product/user/user.router';
 import auth from './product/auth/auth.router';
+import comment from './product/comment/comment.router';
 import NotFoundHandler from './middleware/error/error.NotFound.handler';
 import ErrorHandler from './middleware/error/error.handler';
 
@@ -22,6 +23,8 @@ app.use(express.json());
 app.use('/', user);
 
 app.use('/', post);
+
+app.use('/', comment);
 
 app.use('/', auth);
 
