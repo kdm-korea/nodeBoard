@@ -63,6 +63,12 @@ export default (sequelize, DataTypes) => {
       sourceKey: 'hash',
       onDelete: 'NO ACTION',
     });
+
+    models.User.hasMany(models.Comment, {
+      foreignKey: { name: 'userHash', field: 'userHash', allowNull: false },
+      sourceKey: 'hash',
+      onDelete: 'NO ACTION',
+    });
   };
 
   return User;

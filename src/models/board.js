@@ -38,6 +38,12 @@ export default (sequelize, DataTypes) => {
       targetKey: 'hash',
       onDelete: 'NO ACTION',
     });
+
+    models.Board.hasMany(models.Comment, {
+      foreignKey: { name: 'postId', field: 'postId', allowNull: false },
+      sourceKey: 'id',
+      onDelete: 'No ACTION',
+    });
   };
 
   return Board;
