@@ -39,7 +39,7 @@ const mustNullPermission = body('permission')
   .withMessage('권한은 입력사항이 아닙니다.');
 
 export default {
-  signInSchema: validate([token, email, password]),
+  signInSchema: validate([email, password]),
   signUpSchema: validate([name, email, password, mustNullPermission]),
   signOutSchema: validate([token]),
   userInfoSchema: validate([token]),
