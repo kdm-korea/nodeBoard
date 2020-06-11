@@ -4,7 +4,6 @@ import commentController from './comment.controller';
 
 const router = express.Router();
 
-//base router = post/:postId
 router.get(
   '/post/:postId/comment/page/:pageId',
   commentController.getCommentPage
@@ -16,7 +15,11 @@ router.post(
   commentController.createComment
 );
 
-router.patch('/comment/:commentId', jwt.verification);
+router.patch(
+  '/post/:postId/comment/:commentId',
+  jwt.verification,
+  commentController.updateComment
+);
 
 router.delete('/comment/:commentId', jwt.verification);
 
