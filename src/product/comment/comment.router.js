@@ -21,6 +21,10 @@ router.patch(
   commentController.updateComment
 );
 
-router.delete('/comment/:commentId', jwt.verification);
+router.delete(
+  '/post/:postId/comment/:commentId',
+  jwt.verification,
+  commentController.deleteComment
+);
 
 module.exports = router;
