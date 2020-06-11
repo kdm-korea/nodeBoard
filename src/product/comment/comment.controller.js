@@ -38,8 +38,8 @@ const updateComment = async (req, res, next) => {
 const deleteComment = async (req, res, next) => {
   const { hash } = req.user;
   const dto = req.body;
-  dto.commnetId = req.params.commnetId;
 
+  dto.commentId = req.params.commentId;
   await commentService
     .deleteComment(hash, dto)
     .then(() => res.status(204).json())
