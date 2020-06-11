@@ -1,11 +1,15 @@
 import commentService from './service';
 
 const getCommentPage = async (req, res, next) => {
-  const { postId } = req.params;
+  const pageRange = 5;
+  const dto = { postId: req.params.postId, pageId: req.params.pageId };
 
   commentService
-    .getCommentPage(postId)
-    .then((comments) => res.status(200).json({ comments: comments }))
+    .getCommentPage(dto, pageRange)
+    .then((comments) => {
+      console.log(comments);
+      res.status(200).json(comments);
+    })
     .catch((error) => next(error));
 };
 
