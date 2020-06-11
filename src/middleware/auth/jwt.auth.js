@@ -12,7 +12,7 @@ const verification = async (req, res, next) => {
     token.split('Bearer ')[1],
     process.env.ACCESS_JWT_KEY,
     (err, payload) => {
-      if (!err) {
+      if (!err && payload.hash !== undefined) {
         req.user = payload;
         next();
       } else {
