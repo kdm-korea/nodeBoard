@@ -5,7 +5,10 @@ import commentController from './comment.controller';
 const router = express.Router();
 
 //base router = post/:postId
-router.get('post/:postId/comment/page/:pageId');
+router.get(
+  '/post/:postId/comment/page/:pageId',
+  commentController.getCommentPage
+);
 
 router.post(
   '/post/:postId/comment',
