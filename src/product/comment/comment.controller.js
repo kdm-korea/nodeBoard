@@ -16,11 +16,11 @@ const getCommentPage = async (req, res, next) => {
 const createComment = async (req, res, next) => {
   const { hash } = req.user;
   const dto = req.body;
-  dto.postId = req.params.postId;
 
+  dto.postId = req.params.postId;
   await commentService
     .createComment(hash, dto)
-    .then(() => res.status(204).json())
+    .then((commentId) => res.status(200).json({ commentId: commentId }))
     .catch((error) => next(error));
 };
 
