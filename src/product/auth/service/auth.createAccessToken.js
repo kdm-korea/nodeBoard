@@ -14,7 +14,7 @@ const getRefreshTokenHash = async (token) => {
       if (!err) {
         return payload.hash;
       } else {
-        throw new ErrorMessage.ExpiredToken('유효하지 않은 토큰입니다.');
+        throw new ErrorMessage.ConflictError('유효하지 않은 토큰입니다.');
       }
     }
   );
