@@ -1,8 +1,8 @@
 import db from '../../../config/mariadb.config';
 
-const findAndCountAll({
-    include: [{ model: db.User, atlComment = async (postId) => {
-  return db.Comment.findAndCountAltributes: ['name'] }],
+const findAndCountAllComment = async (postId) => {
+  return db.Comment.findAndCountAll({
+    include: [{ model: db.User, attributes: ['name'] }],
     where: { postId: postId },
     attributes: ['id', 'contents', 'createdAt', 'updatedAt'],
     order: [['createdAt', 'DESC']],
