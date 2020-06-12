@@ -5,7 +5,7 @@ const createAccessToken = async (req, res, next) => {
 
   await authService
     .createAccessToken(token)
-    .then((accessToken) => res.json({ accesstoken: accessToken }))
+    .then((accessToken) => res.json({ accessToken: accessToken }))
     .catch((error) => next(error));
 };
 
