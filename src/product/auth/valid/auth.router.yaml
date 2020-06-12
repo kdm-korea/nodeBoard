@@ -1,0 +1,42 @@
+swagger: '2.0'
+tags:
+- name: 'Auth'
+  description: '리프레시 토큰을 통한 엑세스 토큰생성'
+  # externalDocs:
+  #   description: 'Find out more'
+  #   url: 'http://swagger.io'
+schemes:
+- 'https'
+- 'http'
+paths:
+  /auth:
+    post:
+      tags:
+        - 'Auth'
+      summary: 'create access token'
+      description: '리프레시 토큰을 받아 엑세스 토큰을 반환한다.'
+      consumes: 
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: 'header'
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
+      responses:
+        200:
+          description: 'Success'
+          schema:
+            $ref: '#/definitions/ResAuth'
+
+definitions:
+  ResAuth:
+    type: 'object'
+    properties:
+      accessToken:
+        type: 'JsonWebToken'
+
+          
+
+
+
