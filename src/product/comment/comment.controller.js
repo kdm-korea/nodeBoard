@@ -37,11 +37,9 @@ const updateComment = async (req, res, next) => {
 
 const deleteComment = async (req, res, next) => {
   const { hash } = req.user;
-  const dto = req.body;
-
-  dto.commentId = req.params.commentId;
+  const { commentId } = req.params;
   await commentService
-    .deleteComment(hash, dto)
+    .deleteComment(hash, commentId)
     .then(() => res.status(204).json())
     .catch((error) => next(error));
 };
