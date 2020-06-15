@@ -5,7 +5,7 @@ const token = header('authorization')
   .notEmpty()
   .withMessage('토큰이 없습니다.');
 
-const id = param('postId')
+const postId = param('postId')
   .isNumeric()
   .withMessage('숫자로만 이루어져야 합니다.');
 
@@ -27,8 +27,8 @@ const password = body('password')
 
 export default {
   getPageSchema: validate([pageId]),
-  getOneSchema: validate([id]),
+  getOneSchema: validate([postId]),
   postSaveSchema: validate([token, title, contents]),
-  postPatchSchema: validate([token, id, contents, title]),
-  deleteSchema: validate([token, password, id]),
+  postPatchSchema: validate([token, postId, contents, title]),
+  deleteSchema: validate([token, password, postId]),
 };
