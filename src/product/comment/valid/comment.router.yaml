@@ -1,0 +1,154 @@
+swagger: '2.0'
+tags:
+- name: 'Comment'
+  description: '게시물에 대한 댓글 관련 API'
+  consumes:
+    -'application/json'
+  properties:
+    -'application/json'
+  
+paths:
+  /post/{postId}/comment/page/{pageId}:
+    get:
+      tags:
+        - 'Comment'
+      summary: '댓글 페이징 가져오는 api'
+      description: ''
+      parameters:
+        - in: 'path'
+          required: true
+          name: 'postId'
+          postId:
+            type: 'integer'
+        - in: 'path'
+          required: true
+          name: 'pageId'
+          pageId:
+            type: 'integer'
+      responses:
+        200:
+          description: 'Success'
+          schema: 
+            $ref: '#/definitions/ReqCreatePost'
+
+  /post/{postId}/comment:
+    post:
+      tags:
+        - 'Comment'
+      summary: '댓글을 저장하는 api'
+      description: ''
+      parameters:
+        - in: 'header'
+          required: true
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
+        - in: 'path'
+          name: 'postId'
+          required: true
+        - in: 'body'
+          name: 'comment'
+          description: 'One Comment'
+          required: true
+          schema:
+            $ref: '#/definitions/ReqCreateComment'
+      responses:
+        200:
+          description: 'Success'
+          schema:
+            $ref: '#/definitions/ResCreatePost'
+  
+  /post/{postId}/comment/{commnetId}:
+    patch:
+      tags:
+        - 'Comment'
+      summary: '댓글 수정 api'
+      description: ''
+      parameters:
+        - in: 'header'
+          required: true
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
+        - in: 'path'
+          required: true
+          name: 'postId'
+          postId:
+            type: 'integer'
+        - in: 'path'
+          required: true
+          name: 'pageId'
+          pageId:
+            type: 'integer'
+        - in: 'body'
+          name: 'comment'
+          schema:
+            $ref: '#/definitions/ReqUpdateComment'
+      responses:
+        204:
+          description: 'Success'
+    
+    delete:
+      tags:
+        - 'Comment'
+      summary: '댓글 삭제 api'
+      description: ''
+      parameters:
+        - in: 'header'
+          required: true
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
+        - in: 'path'
+          required: true
+          name: 'postId'
+          postId:
+            type: 'integer'
+        - in: 'path'
+          required: true
+          name: 'pageId'
+          pageId:
+            type: 'integer'
+      responses:
+        204:
+          description: 'Success'
+
+definitions:
+  ReqCreatePost:
+    type: 'object'
+    properties:
+      totalPage:
+        type: integer
+      comments:
+        type: array
+        items:
+          properties:
+            id:
+              type: integer
+            contents:
+              type: string
+            createdAt:
+              type: string
+            updatedAt: 
+              type: string
+            User:
+              type: object
+              properties:
+                name:
+                  type: string
+
+  ReqCreateComment:
+    type: 'object'
+    properties:
+      contents: 
+        type: 'string'
+
+  ResCreatePost:
+    type: 'object'
+    properties:
+      postId:
+        type: 'integer'
+
+  ReqUpdateComment:
+    type: 'object'
+    properties:
+      contents: 
+        type: 'string'
+
