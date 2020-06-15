@@ -6,7 +6,7 @@ const router = express.Router();
 
 const swaggerDefinition = {
   info: {
-    title: 'Test Swagger',
+    title: 'Notice Board Node Server',
     version: '1.0.0',
     description: 'Test Swagger document',
   },
