@@ -1,64 +1,58 @@
-import postService from './post.service';
+import postService from './service';
 
-const savePost = async (req, res, next) => {
-  await postService
-    .create(req.body)
-    .then((data) => {
-      res.json(data);
-      next();
-    })
-    .catch((error) => console.log(error));
+const createPost = (req, res) => {
+  const { body, user } = req;
+
+  postService
+    .createPost(body, user)
+    .then((data) => res.json({ postId: data }))
+    .catch((error) => res.json({ message: error.message }));
 };
 
-const findOne = async (req, res, next) => {
-  const { id } = req.params;
-  await postService
-    .findOne(id)
-    .then((data) => {
-      res.json(data);
-      next();
-    })
-    .catch((error) => console.log(error));
+const findOne = (req, res) => {
+  const { postId } = req.params;
+
+  postService
+    .findPostById(postId)
+    .then((data) => res.json({ post: data }))
+    .catch((error) => res.status(409).json({ message: error.message }));
 };
 
-const updatePost = async (req, res, next) => {
-  const { id } = req.params;
-  const { body } = req;
+const updatePost = (req, res) => {
+  const { postId } = req.params;
+  const { body, user } = req;
 
-  await postService
-    .save(id, body)
-    .then((data) => {
-      res.json(data);
-      next();
-    })
-    .catch((error) => console.log(error));
+  postService
+    .updatePost(postId, body, user.hash)
+    .then(() => res.status(204).json())
+    .catch((error) => res.status(403).json({ message: error.message }));
 };
 
-const deletePost = async (req, res, next) => {
-  const { id } = req.params;
-  await postService
-    .deleteOne(id)
-    .then((data) => {
-      res.json(data);
-      next();
-    })
-    .catch((error) => console.log(error));
+const deletePost = (req, res) => {
+  const { postId } = req.params;
+  const { hash } = req.user;
+  const { password } = req.body;
+
+  postService
+    .deletePost(postId, password, hash)
+    .then(() => res.status(204).json())
+    .catch((error) => res.status(404).json({ message: error.message }));
 };
 
-const findAll = async (req, res, next) => {
-  await postService
-    .findAll()
-    .then((data) => {
-      res.json(data);
-      next();
-    })
-    .catch((error) => console.log(error));
+const paging = (req, res) => {
+  const { pageId } = req.params;
+  const postRange = 5;
+
+  postService
+    .pagingPosts(pageId, postRange)
+    .then((result) => res.json(result))
+    .catch((error) => res.json({ message: error.message }));
 };
 
 export default {
-  savePost,
+  createPost,
+  paging,
   findOne,
   updatePost,
   deletePost,
-  findAll,
 };

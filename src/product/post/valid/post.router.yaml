@@ -1,0 +1,48 @@
+swagger: '2.0'
+tags:
+- name: 'Board'
+  description: 'Everything about your Pets'
+  externalDocs:
+    description: 'Find out more'
+    url: 'http://swagger.io'
+- name: 'User'
+  description: 'Access to Petstore orders'
+- name: 'Comment'
+  description: 'Operations about user'
+  externalDocs:
+    description: 'Find out more about our store'
+    url: 'http://swagger.io'
+schemes:
+- 'https'
+- 'http'
+paths:
+  /post:
+    post:
+      tags:
+        - 'Board'
+      summary: 'add a new post'
+      description: ''
+      consumes:
+        - 'appilcation/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: 'body'
+          name: 'Post Object'
+          description: 'One post'
+          required: true
+          schema:
+            $ref: '#/definitions/Post'
+      responses:
+        200:
+          description: 'Success'
+            
+definitions:
+  Post:
+    type: 'object'
+    properties:
+      title:
+        type: 'string'
+      contents:
+        type: 'string'
+

@@ -1,16 +1,33 @@
 import express from 'express';
+import auth from '../../middleware/auth/jwt.auth';
+import valid from './valid/post.schema';
 import postController from './post.controller';
 
 const router = express.Router();
 
-router.get('/', postController.findAll);
+router.get('/post/page/:pageId', valid.getPageSchema, postController.paging);
 
-router.get('/:id', postController.findOne);
+router.get('/post/:postId', valid.getOneSchema, postController.findOne);
 
-router.post('/', postController.savePost);
+router.post(
+  '/post',
+  auth.verification,
+  valid.postSaveSchema,
+  postController.createPost
+);
 
-router.put('/:id', postController.updatePost);
+router.patch(
+  '/post/:postId',
+  auth.verification,
+  valid.postPatchSchema,
+  postController.updatePost
+);
 
-router.delete('/:id', postController.deletePost);
+router.delete(
+  '/post/:postId',
+  auth.verification,
+  valid.getOneSchema,
+  postController.deletePost
+);
 
 module.exports = router;

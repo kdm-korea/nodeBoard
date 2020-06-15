@@ -1,12 +1,14 @@
+import models from '../config/mariadb.config';
+
 export default (sequelize, DataTypes) => {
-  const board = sequelize.define(
+  const Board = sequelize.define(
     'Board',
     {
       id: {
         field: 'id',
         type: DataTypes.INTEGER,
-        primaryKey: true,
         autoIncrement: true,
+        primaryKey: true,
         allowNull: false,
       },
       title: {
@@ -25,9 +27,24 @@ export default (sequelize, DataTypes) => {
     {
       underscored: true,
       freezeTableName: true,
-      timestamps: false,
+      timestamps: true,
       force: true,
     }
   );
-  return board;
+
+  Board.associate = (models) => {
+    models.Board.belongsTo(models.User, {
+      foreignKey: { name: 'userHash', field: 'userHash', allowNull: false },
+      targetKey: 'hash',
+      onDelete: 'NO ACTION',
+    });
+
+    models.Board.hasMany(models.Comment, {
+      foreignKey: { name: 'postId', field: 'postId', allowNull: false },
+      sourceKey: 'id',
+      onDelete: 'No ACTION',
+    });
+  };
+
+  return Board;
 };

@@ -2,6 +2,7 @@ env:
   browser: true
   es6: true
   node: true
+  mocha: true
 extends:
   - airbnb-base
   - prettier
@@ -13,4 +14,5 @@ parserOptions:
   sourceType: module
 rules: {
   no-console: off
+  no-underscore-dangle: off
 }
