@@ -1,7 +1,7 @@
 swagger: '2.0'
 tags:
 - name: 'Auth'
-  description: '리프레시 토큰을 통한 엑세스 토큰생성'
+  description: '리프레시 토큰을 통한 엑세스 토큰생성 API'
   # externalDocs:
   #   description: 'Find out more'
   #   url: 'http://swagger.io'
