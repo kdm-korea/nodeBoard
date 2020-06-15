@@ -12,4 +12,4 @@ const validate = (validations) => {
   };
 };
 
-module.exports = validate;
+export default validate;

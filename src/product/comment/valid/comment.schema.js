@@ -1,4 +1,4 @@
-import { header, param } from 'express-validator';
+import { header, param, body } from 'express-validator';
 import validate from '../../help/validChining';
 
 const token = header('authorization')

@@ -1,44 +1,184 @@
 swagger: '2.0'
 tags:
 - name: 'User'
-  description: 'Everything about your Pets'
-  externalDocs:
-    description: 'Find out more'
-    url: 'http://swagger.io'
-- name: 'User'
-  description: 'Access to Petstore orders'
-- name: 'Comment'
-  description: 'Operations about user'
-  externalDocs:
-    description: 'Find out more about our store'
-    url: 'http://swagger.io'
-schemes:
-- 'https'
-- 'http'
+  description: '유저 정보 및 로그인 관련 API'
+  consumes:
+    - 'appilcation/json'
+  produces:
+    - 'application/json'
 paths:
-  /post:
+  /signin:
     post:
       tags:
         - 'User'
-      summary: 'add a new User'
+      summary: '유저 로그인 api'
       description: ''
-      consumes:
-        - 'appilcation/json'
-      produces:
-        - 'application/json'
       parameters:
         - in: 'body'
-          name: 'User Object'
-          description: 'One user'
+          name: 'Login Object'
+          description: ''
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/ReqSignIn'
       responses:
         200:
           description: 'Success'
-            
+          schema:
+            $ref: '#/definitions/ResSignIn'
+  
+  /signup:
+    post:
+      tags:
+        - 'User'
+      summary: '유저 회원가입 api'
+      description: ''
+      parameters:
+        - in: 'body'
+          schema:
+            $ref: '#/description/ReqSignUp'
+      responses:
+        200:
+          description: 'Success'
+          schema:
+            $ref: '#/definitions/ReqSignUp'
+    
+  /signout:
+    post: 
+      tags:
+        - 'User'
+      summary: '유저 로그아웃 api'
+      description: ''
+      parameters:
+        - in: 'header'
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
+          required: true
+      responses:
+        204:
+          description: 'Success'
+  /user:
+    get:
+      tags:
+        - 'User'
+      summary: '유저 정보를 가져오는 api'
+      description: ''
+      parameters:
+        - in: 'header'
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
+          required: true
+      responses:
+        200:
+          description: 'return User information'
+          schema:
+            $ref: '#/definitions/ResUserInfo'
+
+    delete:
+      tags:
+        - 'User'
+      summary: '유저 삭제 api'
+      description: ''
+      parameters:
+        - in: 'header'
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
+          required: true
+        - in: 'body'
+          name: 'password'
+          password:
+            type: string
+          required: true
+      responses:
+        204:
+          description: 'Success'
+
+    patch:
+      tags:
+        - 'User'
+      summary: '유저 정보 변경'
+      description: ''
+      parameters:
+        - in: 'header'
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
+          required: true
+        - in: 'body'
+          required: true
+          schema: 
+            $ref: '#/definitions/ReqModifyInfo'
+      responses:
+        204:
+          description: 'Success'
+  
+  /post/pw:
+    patch:
+      tags:
+        - 'User'
+      summary: '비밀번호 변경 api'
+      description: ''
+      parameters:
+        - in: 'header'
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
+          required: true
+        - in: 'body'
+          required: true
+          schema: 
+            $ref: '#/definitions/ReqModifyPw'
+      responses:
+        204:
+          description: 'Success'
+
+    post:
+      tags:
+        - 'User'
+      summary: '비밀번호 검증 api'
+      description: ''
+      parameters:
+        - in: 'header'
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
+          required: true
+        - in: 'body'
+          name: 'password'
+          password:
+            type: string
+          required: true
+      responses:
+        204:
+          description: 'Success'
+
 definitions:
-  User:
+  ReqModifyPw:
+    type: 'object'
+    properties:
+      password:
+        type: string
+      newPassword: 
+        type: string
+
+  ReqModifyInfo:
+    type: 'object'
+    properties:
+      email:
+        type: string
+      name: 
+        type: string
+
+  ResUserInfo:
+    type: 'object'
+    properties:
+      userInfo:
+        type: object
+        properties:
+          name:
+            type: string
+          email:
+            type: string
+          permission:
+            type: string
+
+  ReqSignIn:
     type: 'object'
     properties:
       email:
@@ -47,4 +187,26 @@ definitions:
       password:
         type: 'string'
         
+  ResSignIn:
+    type: 'object'
+    properties:
+      refreshToken: 
+        type: string
+      accessToken:
+        type: string
 
+  ReqSignUp:
+    type: 'object'
+    properties:
+      name: 
+        type: string
+      email:
+        type: string
+      password: 
+        type: string
+
+  ResSignUp:
+    type: 'object'
+    properties:
+      hash:
+        type: string

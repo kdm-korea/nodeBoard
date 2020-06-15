@@ -1,48 +1,155 @@
 swagger: '2.0'
 tags:
-- name: 'Board'
-  description: 'Everything about your Pets'
-  externalDocs:
-    description: 'Find out more'
-    url: 'http://swagger.io'
-- name: 'User'
-  description: 'Access to Petstore orders'
-- name: 'Comment'
-  description: 'Operations about user'
-  externalDocs:
-    description: 'Find out more about our store'
-    url: 'http://swagger.io'
-schemes:
-- 'https'
-- 'http'
+- name: 'Post'
+  description: '게시물 관련 API'
+  consumes:
+    - 'application/json'
+  produces:
+    - 'application/json'
 paths:
   /post:
     post:
       tags:
-        - 'Board'
-      summary: 'add a new post'
+        - 'Post'
+      summary: '게시물을 저장하는 api'
       description: ''
-      consumes:
-        - 'appilcation/json'
-      produces:
-        - 'application/json'
       parameters:
-        - in: 'body'
-          name: 'Post Object'
-          description: 'One post'
+        - in: 'header'
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
           required: true
+        - in: 'body'
           schema:
-            $ref: '#/definitions/Post'
+            $ref: '#/definitions/ReqSavePost'
       responses:
         200:
           description: 'Success'
-            
+          schema:
+            $ref: '#/definitions/ResSavePost'
+
+  /post/page/{pageId}:
+    get:
+      tags:
+        - 'Post'
+      summary: '게시물 리스트 페이지를 가져오는 api'
+      description: ''
+      parameters:
+        - in: 'path'
+          name: 'pageId'
+          pageId:
+            type: 'integer'
+          required: true
+      responses:
+        200:
+          description: 'Success'
+          schema:
+            $ref: '#/definitions/ResPaging'
+
+  /post/{postId}:
+    get:
+      tags: 
+        - 'Post'
+      summary: '게시물 정보롤 반환하는 api'
+      description: ''
+      parameters:
+        - in: 'path'
+          name: 'postId'
+          postId:
+            type: integer
+          required: true
+      responses:
+        200:
+          parameters:
+          schema:
+            $ref: '#/definitions/ResPost'
+    
+    patch: 
+      tags:
+        - 'Post'
+      summary: '게시물 수정을 위한 api'
+      description: ''
+      parameters:
+        - in: 'header'
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
+          required: true
+        - in: 'path'
+          name: 'postId'
+          postId:
+            type: integer
+          required: true
+        - in: 'body'
+          required: true
+          schema:
+            $ref: '#/definitions/ReqUpdatePost'
+      responses:
+        204:
+          description: 'Success'
+
+    delete:
+      tags:
+        - 'Post'
+      summary: '게시물 삭제를 위한 api'
+      description: ''
+      parameters:
+        - in: 'header'
+          name: 'Authorization'
+          description: 'Must be prefix Bearer '
+        - in: 'path'
+          name: 'postId'
+          postId:
+            type: integer
+      responses:
+        204:
+          description: 'Success'
+
 definitions:
-  Post:
+  ReqSavePost:
     type: 'object'
     properties:
       title:
-        type: 'string'
+        type: string
       contents:
-        type: 'string'
+        type: string
 
+  ResSavePost:
+    type: 'object'
+    properties:
+      postId:
+        type: integer
+  
+  ReqUpdatePost:
+    type: 'object'
+    properties:
+      title:
+        type: string
+      contents:
+        type: string
+
+  ResPaging:
+    type: 'object'
+    properties:
+      totalPage: 
+        type: 'integer'
+      posts:  
+        type: 'array'
+        items:
+          properties:
+            id:
+              type: 'integer'
+            title:
+              type: 'string'
+            createdAt:
+              type: 'string'
+
+  ResPost:
+    type: 'object'
+    properties:
+      id:
+        type: 'integer'
+      title:
+        type: 'string'
+      createdAt:
+        type: 'string'
+      writternUser:
+        type: 'string'
