@@ -1,19 +1,14 @@
-import db from '../../../config/mariadb.config';
-
-const findMaxPage = async (postRange) => {
-  return db.Board.count().then((posts) => Math.ceil(posts / postRange));
-};
+import db from "../../../config/mariadb.config";
 
 const execPagingPosts = async (pageNum, postRange) => {
   const page = postRange * (pageNum - 1);
-  const maxPage = await findMaxPage(postRange);
-  const pagePosts = await db.Board.findAll({
+  const { rows, count } = await db.Board.findAndCountAll({
     offset: page,
     limit: postRange,
-    attributes: ['id', 'title', 'createdAt'],
+    attributes: ["id", "title", "createdAt"],
   });
 
-  return { totalPage: maxPage, posts: pagePosts };
+  return { totalPage: parseInt(count / postRange), posts: rows };
 };
 
 export default execPagingPosts;

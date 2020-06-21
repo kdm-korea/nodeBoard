@@ -1,10 +1,10 @@
-import commentService from './service';
+import commentService from "./service";
 
 const getCommentPage = async (req, res, next) => {
   const pageRange = 5;
   const dto = { postId: req.params.postId, pageId: req.params.pageId };
 
-  commentService
+  return commentService
     .getCommentPage(dto, pageRange)
     .then((comments) => {
       console.log(comments);
@@ -18,10 +18,10 @@ const createComment = async (req, res, next) => {
   const dto = req.body;
 
   dto.postId = req.params.postId;
-  await commentService
+  return commentService
     .createComment(hash, dto)
     .then((commentId) => res.status(200).json({ commentId: commentId }))
-    .catch((error) => next(error));
+    .catch(next);
 };
 
 const updateComment = async (req, res, next) => {
@@ -29,19 +29,19 @@ const updateComment = async (req, res, next) => {
   const dto = req.body;
 
   dto.commentId = req.params.commentId;
-  await commentService
+  return commentService
     .updateComment(hash, dto)
     .then(() => res.status(204).json())
-    .catch((error) => next(error));
+    .catch(next);
 };
 
 const deleteComment = async (req, res, next) => {
   const { hash } = req.user;
   const { commentId } = req.params;
-  await commentService
+  return commentService
     .deleteComment(hash, commentId)
-    .then(() => res.status(204).json())
-    .catch((error) => next(error));
+    .then(res.status(204).json)
+    .catch(next);
 };
 
 export default { getCommentPage, createComment, updateComment, deleteComment };

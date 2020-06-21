@@ -1,10 +1,9 @@
-import userHelp from './user.help.service';
+import userHelp from "./user.help.service";
 
 const execSignUp = async (userDto) => {
-  return userHelp
-    .chkNotExistEamil(userDto.email)
-    .then(() => userHelp.createUser(userDto))
-    .then((user) => user.hash);
+  await userHelp.chkNotExistEamil(userDto.email);
+  const { hash } = await userHelp.createUser(userDto);
+  return hash;
 };
 
 export default execSignUp;

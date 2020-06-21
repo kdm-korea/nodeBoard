@@ -1,15 +1,13 @@
-import postHelp from './post.help.service';
+import postHelp from "./post.help.service";
 
 const execFindPostById = async (postId) => {
-  return postHelp.findOneById(postId).then((record) => {
-    const post = {
-      title: record.title,
-      contents: record.contents,
-      created: record.createdAt,
-      writternUser: record.User.name,
-    };
-    return post;
-  });
+  const recordPost = await postHelp.findOneById(postId);
+  return {
+    title: recordPost.title,
+    contents: recordPost.contents,
+    created: recordPost.createdAt,
+    writternUser: recordPost.User.name,
+  };
 };
 
 export default execFindPostById;
