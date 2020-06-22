@@ -1,11 +1,11 @@
-import express from 'express';
-import authController from './auth.contorller';
-import authSchema from './valid/auth.schema';
+import express from "express";
+import authController from "./auth.contorller";
+import authSchema from "./valid/auth.schema";
 
 const router = express.Router();
 
 router.post(
-  '/auth',
+  "/auth",
   authSchema.createAccessToken,
   authController.createAccessToken
 );

@@ -1,18 +1,18 @@
-import models from './../config/mariadb.config';
+import models from "./../config/mariadb.config";
 
 export default (sequelize, DataTypes) => {
   const Comment = sequelize.define(
-    'Comment',
+    "Comment",
     {
       id: {
-        field: 'id',
+        field: "id",
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false,
       },
       contents: {
-        field: 'contents',
+        field: "contents",
         type: DataTypes.STRING,
         unique: false,
         allowNull: false,
@@ -28,15 +28,15 @@ export default (sequelize, DataTypes) => {
 
   Comment.associate = (models) => {
     models.Comment.belongsTo(models.Board, {
-      foreignKey: { name: 'postId', field: 'postId', allowNull: false },
-      targetKey: 'id',
-      onDelete: 'NO ACTION',
+      foreignKey: { name: "postId", field: "postId", allowNull: false },
+      targetKey: "id",
+      onDelete: "NO ACTION",
     });
 
     models.Comment.belongsTo(models.User, {
-      foreignKey: { name: 'userHash', field: 'userHash', allowNull: false },
-      targetKey: 'hash',
-      onDelete: 'NO ACTION',
+      foreignKey: { name: "userHash", field: "userHash", allowNull: false },
+      targetKey: "hash",
+      onDelete: "NO ACTION",
     });
   };
 

@@ -1,18 +1,21 @@
-import db from '../../../config/mariadb.config';
-import commentHelp from './comment.help.service';
+import db from "../../../config/mariadb.config";
+import commentHelp from "./comment.help.service";
 
 const execUpdateComment = async (hash, dto) => {
-  if (commentHelp.compareCommentWriterHash(dto.commentId, hash)) {
-    return db.Comment.update(
-      { contents: dto.contents },
-      { where: { id: dto.commentId } }
-    ).then((record) => {
-      if (record[0] === 1) {
-        return true;
-      }
-      throw new Error('Database Error ::: Comment.Update.Service');
-    });
-  }
+  const isComment = await commentHelp.compareCommentWriterHash(
+    dto.commentId,
+    hash
+  );
+  if (!isComment) return;
+  const [updated] = await db.Comment.update(
+    { contents: dto.contents },
+    { where: { id: dto.commentId } }
+  );
+
+  if (updated !== 1)
+    throw new Error("Database Error ::: Comment.Update.Service");
+
+  return true;
 };
 
 export default execUpdateComment;

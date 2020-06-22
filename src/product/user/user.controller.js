@@ -1,11 +1,11 @@
-import userService from './service';
+import userService from "./service";
 
 const signUp = (req, res, next) => {
   const { body } = req;
   userService
     .signUp(body)
     .then((userHash) => res.json({ hash: userHash }))
-    .catch((error) => next(error));
+    .catch(next);
 };
 
 const signIn = (req, res) => {

@@ -1,9 +1,10 @@
-import db from '../../../config/mariadb.config';
+import db from "../../../config/mariadb.config";
 
-const execCreate = async (post, user) => {
+const execCreate = async (post, { hash }) => {
   const dto = post;
-  dto.userHash = await user.hash;
-  return db.Board.create(dto).then((record) => record.id);
+  dto.userHash = hash;
+  const { id } = db.Board.create(dto);
+  return id;
 };
 
 export default execCreate;

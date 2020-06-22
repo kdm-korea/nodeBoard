@@ -1,20 +1,18 @@
-import db from '../../../config/mariadb.config';
-import commentHelp from './comment.help.service';
-import ErrorMessage from '../../help/exception';
+import db from "../../../config/mariadb.config";
+import commentHelp from "./comment.help.service";
+import ErrorMessage from "../../help/exception";
 
 const deleteComment = async (commentId) => {
   return db.Comment.destroy({ where: { id: commentId } });
 };
 
 const execDeleteComment = async (hash, commentId) => {
-  if (await commentHelp.compareCommentWriterHash(commentId, hash)) {
-    return deleteComment(commentId).then((count) => {
-      if (count === 1) {
-        return true;
-      }
-      throw new Error('Database Error ::: comment.delete.service');
-    });
-  }
+  const isComment = await commentHelp.compareCommentWriterHash(commentId, hash);
+  if (!isComment) return;
+  const deleteCount = deleteComment(commentId);
+  if (deleteCount !== 1)
+    throw new Error("Database Error ::: comment.delete.service");
+  return true;
 };
 
 export default execDeleteComment;

@@ -1,6 +1,6 @@
-import { readdirSync } from 'fs';
-import { basename as _basename, join } from 'path';
-import Sequelize from 'sequelize';
+import { readdirSync } from "fs";
+import { basename as _basename, join } from "path";
+import Sequelize from "sequelize";
 
 const basename = _basename(__filename);
 const dirname = `${__dirname.substring(0, __dirname.length - 6)}models`;
@@ -13,7 +13,7 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST_IP,
     dialect: process.env.DB_DIALECT,
-    timezone: 'Etc/GMT-9',
+    timezone: "Etc/GMT-9",
     pool: {
       max: 20,
       min: 5,
@@ -26,7 +26,7 @@ const sequelize = new Sequelize(
     logging: false,
     dialectOptions: {
       useUTC: false,
-      timezone: 'Etc/GMT-9',
+      timezone: "Etc/GMT-9",
     },
   }
 );
@@ -34,7 +34,7 @@ const sequelize = new Sequelize(
 readdirSync(dirname)
   .filter((file) => {
     return (
-      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
+      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
     );
   })
   .forEach((file) => {
