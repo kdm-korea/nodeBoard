@@ -1,4 +1,4 @@
-import postService from "./service";
+import postService from './service';
 
 const createPost = (req, res) => {
   const { body, user } = req;

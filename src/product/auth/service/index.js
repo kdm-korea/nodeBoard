@@ -1,4 +1,4 @@
-import createAccessToken from "./auth.createAccessToken";
+import createAccessToken from './auth.createAccessToken';
 
 export default {
   createAccessToken,

@@ -4,7 +4,7 @@ class BaseError extends Error {
     Error.captureStackTrace(this, this.constructor);
     this.status = status || 500;
     this.errorType = this.constructor.name;
-    this.message = message || "NOT DEFINED ERROR";
+    this.message = message || 'NOT DEFINED ERROR';
   }
 }
 

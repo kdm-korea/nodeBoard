@@ -1,4 +1,4 @@
-import userService from "./service";
+import userService from './service';
 
 const signUp = (req, res, next) => {
   const { body } = req;

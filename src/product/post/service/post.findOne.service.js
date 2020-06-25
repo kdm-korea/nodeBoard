@@ -1,4 +1,4 @@
-import postHelp from "./post.help.service";
+import postHelp from './post.help.service';
 
 const execFindPostById = async (postId) => {
   const recordPost = await postHelp.findOneById(postId);

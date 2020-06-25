@@ -1,4 +1,4 @@
-import authService from "./service";
+import authService from './service';
 
 const createAccessToken = async (req, res, next) => {
   const token = req.headers.authorization;

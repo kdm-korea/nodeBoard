@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
 const createToken = (data, time, key) => {
   return jwt.sign(data, key, {
@@ -10,7 +10,7 @@ const createRefreshToken = async (user) => {
   const data = {
     hash: user.hash,
   };
-  return createToken(data, "7d", process.env.REFRESH_JWT_KEY);
+  return createToken(data, '7d', process.env.REFRESH_JWT_KEY);
 };
 
 const createAccessToken = (user) => {
@@ -20,7 +20,7 @@ const createAccessToken = (user) => {
     name: user.name,
     email: user.email,
   };
-  return createToken(data, "30m", process.env.ACCESS_JWT_KEY);
+  return createToken(data, '30m', process.env.ACCESS_JWT_KEY);
 };
 
 const createTokens = async (user) => {

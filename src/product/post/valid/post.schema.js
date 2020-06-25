@@ -1,29 +1,29 @@
-import { param, header, body } from "express-validator";
-import validate from "../../help/validChining";
+import { param, header, body } from 'express-validator';
+import validate from '../../help/validChining';
 
-const token = header("authorization")
+const token = header('authorization')
   .notEmpty()
-  .withMessage("토큰이 없습니다.");
+  .withMessage('토큰이 없습니다.');
 
-const postId = param("postId")
+const postId = param('postId')
   .isNumeric()
-  .withMessage("숫자로만 이루어져야 합니다.");
+  .withMessage('숫자로만 이루어져야 합니다.');
 
-const pageId = param("pageId")
+const pageId = param('pageId')
   .isNumeric()
-  .withMessage("숫자로만 이루어져 있어야 합니다.");
+  .withMessage('숫자로만 이루어져 있어야 합니다.');
 
-const title = body("title")
+const title = body('title')
   .notEmpty()
-  .withMessage("제목은 필수 입력사항입니다.");
+  .withMessage('제목은 필수 입력사항입니다.');
 
-const contents = body("contents")
+const contents = body('contents')
   .notEmpty()
-  .withMessage("내용은 필수 입력사항입니다.");
+  .withMessage('내용은 필수 입력사항입니다.');
 
-const password = body("password")
+const password = body('password')
   .notEmpty()
-  .withMessage("비밀번호는 필수 입력사항입니다.");
+  .withMessage('비밀번호는 필수 입력사항입니다.');
 
 export default {
   getPageSchema: validate([pageId]),

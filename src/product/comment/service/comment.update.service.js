@@ -1,5 +1,5 @@
-import db from "../../../config/mariadb.config";
-import commentHelp from "./comment.help.service";
+import db from '../../../config/mariadb.config';
+import commentHelp from './comment.help.service';
 
 const execUpdateComment = async (hash, dto) => {
   const isComment = await commentHelp.compareCommentWriterHash(
@@ -13,7 +13,7 @@ const execUpdateComment = async (hash, dto) => {
   );
 
   if (updated !== 1)
-    throw new Error("Database Error ::: Comment.Update.Service");
+    throw new Error('Database Error ::: Comment.Update.Service');
 
   return true;
 };

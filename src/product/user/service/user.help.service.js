@@ -1,7 +1,7 @@
-import db from "../../../config/mariadb.config";
-import crypto from "../../help/crpytoEncoding";
-import uuid from "../../help/uuid";
-import ErrorMessage from "../../help/exception";
+import db from '../../../config/mariadb.config';
+import crypto from '../../help/crpytoEncoding';
+import uuid from '../../help/uuid';
+import ErrorMessage from '../../help/exception';
 
 const findUserByHash = async (userHash) => {
   const user = await db.User.findOne({
@@ -9,7 +9,7 @@ const findUserByHash = async (userHash) => {
     where: { hash: userHash },
   });
   if (user === null) {
-    throw new ErrorMessage.Forbioddan("없는 사용자입니다.");
+    throw new ErrorMessage.Forbioddan('없는 사용자입니다.');
   }
   return user;
 };
@@ -21,7 +21,7 @@ const findUserByEmail = async (userEmail) => {
   });
 
   if (user !== null) {
-    throw new ErrorMessage.Forbioddan("이메일이 일치하는 유저가 없습니다.");
+    throw new ErrorMessage.Forbioddan('이메일이 일치하는 유저가 없습니다.');
   }
   return user;
 };
@@ -33,7 +33,7 @@ const chkNotExistEamil = async (inputEmail) => {
   });
   if (reduplicate.count !== 0) {
     throw new ErrorMessage.Forbioddan(
-      "이미 계정을 소유하고 있는 이메일입니다."
+      '이미 계정을 소유하고 있는 이메일입니다.'
     );
   }
   return true;
@@ -46,7 +46,7 @@ const comparePassword = async (user, password) => {
     user.password
   );
   if (!isPassword) {
-    throw new ErrorMessage.Forbioddan("패스워드가 일치하지 않습니다.");
+    throw new ErrorMessage.Forbioddan('패스워드가 일치하지 않습니다.');
   }
   return true;
 };
@@ -68,7 +68,7 @@ const updateUserInfo = async (user, userDto) => {
     { where: { hash: user.hash } }
   );
   if (user !== 1) {
-    throw new Error("Database Error, user.help.service :: updateUserInfo");
+    throw new Error('Database Error, user.help.service :: updateUserInfo');
   }
   return true;
 };
@@ -80,7 +80,7 @@ const updatePw = async (user, newPassword) => {
     { where: { hash: user.hash } }
   );
   if (recordUser[0] === 1) {
-    throw new Error("Database Error, user.help.service :: updatePw");
+    throw new Error('Database Error, user.help.service :: updatePw');
   }
   return true;
 };

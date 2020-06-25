@@ -1,4 +1,4 @@
-import userHelp from "./user.help.service";
+import userHelp from './user.help.service';
 
 const execIsCorrectPassword = async (hash, password) => {
   const user = await userHelp.findUserByHash(hash);

@@ -1,4 +1,4 @@
-import commentService from "./service";
+import commentService from './service';
 
 const getCommentPage = async (req, res, next) => {
   const pageRange = 5;

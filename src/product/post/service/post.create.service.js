@@ -1,4 +1,4 @@
-import db from "../../../config/mariadb.config";
+import db from '../../../config/mariadb.config';
 
 const execCreate = async (post, { hash }) => {
   const dto = post;
