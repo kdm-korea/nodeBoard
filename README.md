@@ -22,11 +22,18 @@
  
  
  - nodemon
+ 
  - sequelize
+   - ORM 
  - sinon
+ 
  - swagger
+   - Api 문서화
  - eslint
    - airbnb
+   
  - mocha
+   - 테스트 시 사용
  - prettier
+ 
  - should
