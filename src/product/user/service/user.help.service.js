@@ -16,11 +16,11 @@ const findUserByHash = async (userHash) => {
 
 const findUserByEmail = async (userEmail) => {
   const user = await db.User.findOne({
-    where: { email: userEmail },
     raw: true,
+    where: { email: userEmail },
   });
 
-  if (user !== null) {
+  if (user === null) {
     throw new ErrorMessage.Forbioddan('이메일이 일치하는 유저가 없습니다.');
   }
   return user;
