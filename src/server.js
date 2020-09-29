@@ -13,6 +13,7 @@ const app = express();
 db.sequelize
   // .sync()
   .authenticate()
+  .then(() => console.log('✔ Success DB connection!'))
   .catch((err) => {
     console.log(`✗ DB connection error. :::: ${err}`);
     process.exit();
